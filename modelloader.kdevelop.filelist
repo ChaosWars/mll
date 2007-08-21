@@ -1,0 +1,16 @@
+# KDevelop Custom Project File List
+CMakeLists.txt
+src/CMakeLists.txt
+src/model.cc
+src/model.h
+src
+src/materialloader.h
+src/modelloader.h
+src/objloader.cc
+src/objloader.h
+src/objmaterialloader.cc
+src/objmaterialloader.h
+src/material.h
+src/material.cc
+src/mll.h
+src/mll.cc
