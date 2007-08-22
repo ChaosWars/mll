@@ -1,61 +1,43 @@
 <?xml version = '1.0'?>
 <kdevelop>
   <general>
-    <author/>
-    <email/>
-    <version>$VERSION$</version>
-    <projectmanagement>KDevCustomProject</projectmanagement>
-    <primarylanguage>C++</primarylanguage>
-    <ignoreparts/>
-    <projectdirectory>/home/lawrence/Projects/modelloader</projectdirectory>
-    <absoluteprojectpath>true</absoluteprojectpath>
-    <secondaryLanguages>
-      <language>C</language>
-    </secondaryLanguages>
-    <projectname>modelloader</projectname>
+  <author></author>
+  <email></email>
+  <version>$VERSION$</version>
+  <projectmanagement>KDevCustomProject</projectmanagement>
+  <primarylanguage>C++</primarylanguage>
+  <ignoreparts/>
+  <projectdirectory>/home/lawrence/svn/mll/trunk</projectdirectory>
+  <absoluteprojectpath>true</absoluteprojectpath>
+  <secondaryLanguages>
+     <language>C</language>
+  </secondaryLanguages>
   </general>
   <kdevcustomproject>
-    <filelistdirectory>/home/lawrence/Projects/modelloader</filelistdirectory>
+    <filelistdirectory>/home/lawrence/svn/mll/trunk</filelistdirectory>
     <run>
-      <mainprogram/>
+      <mainprogram></mainprogram>
       <directoryradio>custom</directoryradio>
-      <customdirectory>/home/lawrence/Projects/modelloader</customdirectory>
-      <programargs/>
+      <customdirectory>/home/lawrence/svn/mll/trunk</customdirectory>
+      <programargs></programargs>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
       <envvars/>
     </run>
     <build>
       <buildtool>make</buildtool>
-      <builddir>/home/lawrence/Projects/modelloader</builddir>
+      <builddir>/home/lawrence/svn/mll/trunk</builddir>
     </build>
     <make>
       <abortonerror>false</abortonerror>
       <numberofjobs>1</numberofjobs>
       <dontact>false</dontact>
-      <makebin/>
+      <makebin></makebin>
       <selectedenvironment>default</selectedenvironment>
       <environments>
         <default/>
       </environments>
     </make>
-    <filetypes>
-      <filetype>*.java</filetype>
-      <filetype>*.h</filetype>
-      <filetype>*.H</filetype>
-      <filetype>*.hh</filetype>
-      <filetype>*.hxx</filetype>
-      <filetype>*.hpp</filetype>
-      <filetype>*.c</filetype>
-      <filetype>*.C</filetype>
-      <filetype>*.cc</filetype>
-      <filetype>*.cpp</filetype>
-      <filetype>*.c++</filetype>
-      <filetype>*.cxx</filetype>
-      <filetype>Makefile</filetype>
-      <filetype>CMakeLists.txt</filetype>
-    </filetypes>
-    <blacklist/>
   </kdevcustomproject>
   <kdevfilecreate>
     <filetypes/>
@@ -94,33 +76,8 @@
       <codeCompletionDelay>250</codeCompletionDelay>
       <argumentsHintDelay>400</argumentsHintDelay>
       <headerCompletionDelay>250</headerCompletionDelay>
-      <showOnlyAccessibleItems>false</showOnlyAccessibleItems>
-      <completionBoxItemOrder>0</completionBoxItemOrder>
-      <howEvaluationContextMenu>true</howEvaluationContextMenu>
-      <showCommentWithArgumentHint>true</showCommentWithArgumentHint>
-      <statusBarTypeEvaluation>false</statusBarTypeEvaluation>
-      <namespaceAliases>std=_GLIBCXX_STD;__gnu_cxx=std</namespaceAliases>
-      <processPrimaryTypes>true</processPrimaryTypes>
-      <processFunctionArguments>false</processFunctionArguments>
-      <preProcessAllHeaders>false</preProcessAllHeaders>
-      <parseMissingHeadersExperimental>false</parseMissingHeadersExperimental>
-      <resolveIncludePathsUsingMakeExperimental>false</resolveIncludePathsUsingMakeExperimental>
-      <alwaysParseInBackground>true</alwaysParseInBackground>
-      <usePermanentCaching>true</usePermanentCaching>
-      <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
-      <includePaths>.;</includePaths>
     </codecompletion>
     <references/>
-    <qt>
-      <used>false</used>
-      <version>3</version>
-      <includestyle>3</includestyle>
-      <root></root>
-      <designerintegration>EmbeddedKDevDesigner</designerintegration>
-      <qmake>/opt/qt4/bin/qmake</qmake>
-      <designer>/opt/qt4/bin/designer</designer>
-      <designerpluginpaths/>
-    </qt>
   </kdevcppsupport>
   <kdevfileview>
     <groups>
@@ -129,7 +86,6 @@
       <group pattern="*.cpp;*.c;*.C;*.cxx" name="Sources" />
       <group pattern="*.ui" name="Qt Designer files" />
       <hidenonprojectfiles>true</hidenonprojectfiles>
-      <hidenonlocation>false</hidenonlocation>
     </groups>
     <tree>
       <hidepatterns>*.o,*.lo,CVS,*~,cmake*</hidepatterns>
