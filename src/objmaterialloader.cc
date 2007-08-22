@@ -88,7 +88,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 
 			}else if( buffer.substr( 0, 4 ) == "illum" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"illum %d",
 						specular );
 
@@ -97,7 +97,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 
 			}else if( buffer.substr( 0, 2 ) == "Ka" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"Ka %f %f %f",
 						ambient_red,
 						ambient_blue,
@@ -105,7 +105,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 				
 			}else if( buffer.substr( 0, 2 ) == "Kd" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"Kd %f %f %f",
 						diffuse_red,
 						diffuse_blue,
@@ -113,7 +113,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 				
 			}else if( buffer.substr( 0, 2 ) == "Ks" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"Ks %f %f %f",
 						specular_red,
 						specular_blue,
@@ -121,19 +121,19 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 
 			}else if( buffer.substr( 0, 2 ) == "Ns" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"Ns %f",
 						shininess );
 
 			}else if( buffer.substr( 0, 2 ) == "Tr" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"Tr %f",
 						alpha );
 
 			}else if( buffer.substr( 0, 1 ) == "d" ){
 
-				sscanf( buffer.substr(),
+				sscanf( buffer.c_str(),
 						"d %f",
 						alpha );
 
