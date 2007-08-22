@@ -154,25 +154,25 @@ void Material::SetSpecularTexture( char *specular_file )
 	ilLoadImage( specular_file );
 }
 
-void Material::SetAmbientColor( float red, float blue, float green )
+void Material::SetAmbientColor( float red, float green, float blue )
 {
 	ambient_color[ 0 ] = red;
-	ambient_color[ 1 ] = blue;
-	ambient_color[ 2 ] = green;
+	ambient_color[ 1 ] = green;
+	ambient_color[ 2 ] = blue;
 }
 
-void Material::SetDiffuseColor( float red, float blue, float green )
+void Material::SetDiffuseColor( float red, float green, float blue )
 {
 	diffuse_color[ 0 ] = red;
-	diffuse_color[ 1 ] = blue;
-	diffuse_color[ 2 ] = green;
+	diffuse_color[ 1 ] = green;
+	diffuse_color[ 2 ] = blue;
 }
 
-void Material::SetSpecularColor( float red, float blue, float green )
+void Material::SetSpecularColor( float red, float green, float blue )
 {
 	specular_color[ 0 ] = red;
-	specular_color[ 1 ] = blue;
-	specular_color[ 2 ] = green;
+	specular_color[ 1 ] = green;
+	specular_color[ 2 ] = blue;
 }
 
 void Material::SetAlpha( float alpha )
