@@ -46,14 +46,14 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 	std::string *name = NULL;
 	std::string *diffuse_map = NULL;
 	float ambient_red = 0.0;
-	float ambient_blue = 0.0;
 	float ambient_green = 0.0;
+	float ambient_blue = 0.0;
 	float diffuse_red = 0.0;
-	float diffuse_blue = 0.0;
 	float diffuse_green = 0.0;
+	float diffuse_blue = 0.0;
 	float specular_red = 0.0;
-	float specular_blue = 0.0;
 	float specular_green = 0.0;
+	float specular_blue = 0.0;
 	float shininess = 0.0;
 	float alpha = 1.0;
 	int specular = 1;
@@ -142,7 +142,17 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 			getline( file, buffer );
 		}
 
-		materials->push_back( new Material( *name ) );
+		materials->push_back( new Material( *name, const_cast< char* >( diffuse_map->c_str() ) ) );
+		materials->back()->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
+		materials->back()->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
+
+		if( has_specular ){
+			materials->back()->SetHasSpecular( true );
+			materials->back()->SetSpecularColor( specular_red, specular_green, specular_blue );
+		}
+
+		materials->back()->SetAlpha( alpha );
+		materials->back()->SetShininess( shininess );
 
 		if( diffuse_map != NULL ){
 			delete diffuse_map;
@@ -150,14 +160,14 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 		}
 
 		ambient_red = 0.0;
-		ambient_blue = 0.0;
 		ambient_green = 0.0;
+		ambient_blue = 0.0;
 		diffuse_red = 0.0;
-		diffuse_blue = 0.0;
 		diffuse_green = 0.0;
+		diffuse_blue = 0.0;
 		specular_red = 0.0;
-		specular_blue = 0.0;
 		specular_green = 0.0;
+		specular_blue = 0.0;
 		shininess = 0.0;
 		alpha = 1.0;
 		specular = 1;

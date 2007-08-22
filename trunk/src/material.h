@@ -163,7 +163,7 @@ namespace mll{
 			 * @param green
 			 * 		The green ambient channel of the material.
 			 */
-			void SetAmbientColor( float red, float blue, float green );
+			void SetAmbientColor( float red, float green, float blue );
 
 			/**
 			 * Set the diffuse color for the material.
@@ -177,7 +177,7 @@ namespace mll{
 			 * @param green
 			 * 		The green diffuse channel of the material.
 			 */
-			void SetDiffuseColor( float red, float blue, float green );
+			void SetDiffuseColor( float red, float green, float blue );
 
 			/**
 			 * Set the specular color for the material.
@@ -191,7 +191,7 @@ namespace mll{
 			 * @param green
 			 * 		The green specular channel of the material.
 			 */
-			void SetSpecularColor( float red, float blue, float green );
+			void SetSpecularColor( float red, float green, float blue );
 
 			/**
 			 * Set the alpha value of the material.
