@@ -45,6 +45,19 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 
 	std::string *name = NULL;
 	std::string *diffuse_map = NULL;
+	float ambient_red = 0.0;
+	float ambient_blue = 0.0;
+	float ambient_green = 0.0;
+	float diffuse_red = 0.0;
+	float diffuse_blue = 0.0;
+	float diffuse_green = 0.0;
+	float specular_red = 0.0;
+	float specular_blue = 0.0;
+	float specular_green = 0.0;
+	float shininess = 0.0;
+	float alpha = 1.0;
+	int specular = 1;
+	bool has_specular = false;
 	int material_idx = 0;
 
 	//Second pass reads the material properties
@@ -73,18 +86,82 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 						diffuse_map );
 				printf( "diffuse_map : %s\n", diffuse_map->c_str() );
 
+			}else if( buffer.substr( 0, 4 ) == "illum" ){
+
+				sscanf( buffer.substr(),
+						"illum %d",
+						specular );
+
+				if( specular == 2 )
+					has_specular = true;
+
+			}else if( buffer.substr( 0, 2 ) == "Ka" ){
+
+				sscanf( buffer.substr(),
+						"Ka %f %f %f",
+						ambient_red,
+						ambient_blue,
+						ambient_green );
+				
+			}else if( buffer.substr( 0, 2 ) == "Kd" ){
+
+				sscanf( buffer.substr(),
+						"Kd %f %f %f",
+						diffuse_red,
+						diffuse_blue,
+						diffuse_green );
+				
+			}else if( buffer.substr( 0, 2 ) == "Ks" ){
+
+				sscanf( buffer.substr(),
+						"Ks %f %f %f",
+						specular_red,
+						specular_blue,
+						specular_green );
+
+			}else if( buffer.substr( 0, 2 ) == "Ns" ){
+
+				sscanf( buffer.substr(),
+						"Ns %f",
+						shininess );
+
+			}else if( buffer.substr( 0, 2 ) == "Tr" ){
+
+				sscanf( buffer.substr(),
+						"Tr %f",
+						alpha );
+
+			}else if( buffer.substr( 0, 1 ) == "d" ){
+
+				sscanf( buffer.substr(),
+						"d %f",
+						alpha );
+
 			}
 
 			getline( file, buffer );
 		}
 
-// 		materials[ material_idx ] = new Material( *name );
 		materials->push_back( new Material( *name ) );
 
 		if( diffuse_map != NULL ){
 			delete diffuse_map;
 			diffuse_map = NULL;
 		}
+
+		ambient_red = 0.0;
+		ambient_blue = 0.0;
+		ambient_green = 0.0;
+		diffuse_red = 0.0;
+		diffuse_blue = 0.0;
+		diffuse_green = 0.0;
+		specular_red = 0.0;
+		specular_blue = 0.0;
+		specular_green = 0.0;
+		shininess = 0.0;
+		alpha = 1.0;
+		specular = 1;
+		has_specular = false;
 		
 		++material_idx;
 	}
