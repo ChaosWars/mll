@@ -1,14 +1,14 @@
 <?xml version = '1.0'?>
 <kdevelop>
   <general>
+  <projectmanagement>KDevCustomProject</projectmanagement>
+  <projectdirectory>/home/lawrence/svn/mll/trunk</projectdirectory>
+  <absoluteprojectpath>true</absoluteprojectpath>
   <author></author>
   <email></email>
   <version>$VERSION$</version>
-  <projectmanagement>KDevCustomProject</projectmanagement>
   <primarylanguage>C++</primarylanguage>
   <ignoreparts/>
-  <projectdirectory>/home/lawrence/svn/mll/trunk</projectdirectory>
-  <absoluteprojectpath>true</absoluteprojectpath>
   <secondaryLanguages>
      <language>C</language>
   </secondaryLanguages>

@@ -3,7 +3,8 @@
 using namespace mll;
 
 Material::Material( const std::string &name, char *diffuse_file,
-	 				char *normal_file, char *specular_file )
+	 				char *normal_file, char *specular_file ) :
+					_has_specular( false )
 {
 	if( &name != NULL )
 		this->name = new std::string( name );
@@ -30,6 +31,10 @@ Material::Material( const std::string &name, char *diffuse_file,
 		ilLoadImage( specular_file );
 	}else
 		this->specular_tex = NULL;
+
+	ambient_color.assign( 0.0 );
+	diffuse_color.assign( 0.0 );
+	specular_color.assign( 0.0 );
 }
 
 Material::~Material()
@@ -46,47 +51,6 @@ Material::~Material()
 	if( specular_tex != 0 )
 		ilDeleteImages( 1, &specular_tex );
 }
-
-// Material& Material::operator= ( Material &material )
-// {
-// 	if( this != &material ){
-// 
-// 		if( name != NULL ){
-// 			delete name;
-// 			name = NULL;
-// 
-// 			if( material.Name() != NULL )
-// 				name = const_cast< std::string* >( material.Name() );
-// 
-// 		}
-// 
-// 		if( &diffuse_tex != NULL ){
-// 			ilDeleteImages( 1, &diffuse_tex );
-// 			diffuse_tex = NULL;
-// 
-// 			if( material.DiffuseTexture() != NULL )
-// 				diffuse_tex = *const_cast< ILuint* >( material.DiffuseTexture() );
-// 		}
-// 
-// 		if( &normal_tex != NULL ){
-// 			ilDeleteImages( 1, &normal_tex );
-// 			normal_tex = NULL;
-// 
-// 			if( material.NormalTexture() != NULL )
-// 				normal_tex = *const_cast< ILuint* >( material.NormalTexture() );
-// 		}
-// 
-// 		if( &specular_tex != NULL ){
-// 			ilDeleteImages( 1, &specular_tex );
-// 			specular_tex = NULL;
-// 
-// 			if( material.SpecularTexture() != NULL )
-// 				specular_tex = *const_cast< ILuint* >( material.SpecularTexture() );
-// 		}
-// 	}
-// 
-// 	return *this;
-// }
 
 const std::string* Material::Name()
 {
@@ -118,6 +82,36 @@ const ILuint* Material::SpecularTexture()
 		return &specular_tex;
 	else
 		return NULL;	
+}
+
+const boost::array< float, 3 >* Material::AmbientColor()
+{
+	return &ambient_color;
+}
+
+const boost::array< float, 3 >* Material::DiffuseColor()
+{
+	return &diffuse_color;
+}
+
+const boost::array< float, 3 >* Material::SpecularColor()
+{
+	return &specular_color;
+}
+
+float Material::Alpha()
+{
+	return _alpha;
+}
+
+float Material::Shininess()
+{
+	return _shininess;
+}
+
+bool Material::HasSpecular()
+{
+	return _has_specular;
 }
 
 void Material::SetName( const std::string &name )
@@ -158,4 +152,40 @@ void Material::SetSpecularTexture( char *specular_file )
 	ilGenImages( 1, &specular_tex );
 	ilBindImage( specular_tex );
 	ilLoadImage( specular_file );
+}
+
+void Material::SetAmbientColor( float red, float blue, float green )
+{
+	ambient_color[ 0 ] = red;
+	ambient_color[ 1 ] = blue;
+	ambient_color[ 2 ] = green;
+}
+
+void Material::SetDiffuseColor( float red, float blue, float green )
+{
+	diffuse_color[ 0 ] = red;
+	diffuse_color[ 1 ] = blue;
+	diffuse_color[ 2 ] = green;
+}
+
+void Material::SetSpecularColor( float red, float blue, float green )
+{
+	specular_color[ 0 ] = red;
+	specular_color[ 1 ] = blue;
+	specular_color[ 2 ] = green;
+}
+
+void Material::SetAlpha( float alpha )
+{
+	_alpha = alpha;
+}
+
+void Material::SetShininess( float shininess )
+{
+	_shininess = shininess;
+}
+
+void Material::SetHasSpecular( bool has_specular )
+{
+	_has_specular = has_specular;
 }

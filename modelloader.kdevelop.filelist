@@ -1,11 +1,16 @@
 CMakeLists.txt
+Makefile
+src
 src/CMakeLists.txt
+src/Makefile
 src/material.cc
 src/material.h
+src/materialloader.h
 src/mll.cc
 src/mll.h
 src/model.cc
 src/model.h
+src/modelloader.h
 src/objloader.cc
 src/objloader.h
 src/objmaterialloader.cc
