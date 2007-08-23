@@ -115,16 +115,30 @@ Model* OBJLoader::LoadModel( const char *objfile )
  			//printf( "face\n" );
 
 			sscanf( buffer.c_str(),
-			"f %d/%d/%d %d/%d/%d %d/%d/%d",
-			&vertex_indices[ face_index ],
-			&tex_coord_indices[ face_index ],
-			&normal_indices[ face_index ],
-			&vertex_indices[ face_index + 1 ],
-			&tex_coord_indices[ face_index + 1 ],
-			&normal_indices[ face_index + 1 ],
-			&vertex_indices[ face_index + 2 ],
-			&tex_coord_indices[ face_index + 2 ],
-			&normal_indices[ face_index + 2 ] );
+				"f %d/%d/%d %d/%d/%d %d/%d/%d",
+				&vertex_indices[ face_index ],
+				&tex_coord_indices[ face_index ],
+				&normal_indices[ face_index ],
+				&vertex_indices[ face_index + 1 ],
+				&tex_coord_indices[ face_index + 1 ],
+				&normal_indices[ face_index + 1 ],
+				&vertex_indices[ face_index + 2 ],
+				&tex_coord_indices[ face_index + 2 ],
+				&normal_indices[ face_index + 2 ] );
+
+			/*	The vertex index array values start counting at 1,
+			 *	so we decrement each value to compensate for our
+			 *	starting to count at 0.
+			 */
+			vertex_indices[ face_index ]--;
+			tex_coord_indices[ face_index ]--;
+			normal_indices[ face_index ]--;
+			vertex_indices[ face_index + 1 ]--;
+			tex_coord_indices[ face_index + 1 ]--;
+			normal_indices[ face_index + 1 ]--;
+			vertex_indices[ face_index + 2 ]--;
+			tex_coord_indices[ face_index + 2 ]--;
+			normal_indices[ face_index + 2 ]--;
 
 // 			printf( "vertex %d\n",vertex_indices[ face_index ] );
 // 			printf( "texture %d\n", tex_coord_indices[ face_index ] );
