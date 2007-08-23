@@ -7,7 +7,7 @@
 namespace mll{
 
 	/**
-	* \brief The ModelLoader class is an abstract base class for
+	* @brief The ModelLoader class is an abstract base class for
 	* model loading classes.
 	*/
 	class ModelLoader
@@ -30,10 +30,10 @@ namespace mll{
 			* easily be used by 3D API's.
 			*
 			* @param model_file
-			* 		A pointer to the file to load.
+			*		A pointer to the file to load.
 			*
 			* @returns
-			* 		The data contained in the file.
+			*		The data contained in the file.
 			*/
 			virtual Model* LoadModel( const char *model_file );
 
@@ -43,35 +43,35 @@ namespace mll{
 			* Helper function for creating a new Model object.
 			*
 			* @param name
-			* 		The name of the model.
+			*		The name of the model.
 			*
 			* @param vertices
-			* 		Indexed array containing the vertex data of the model.
+			*		Indexed array containing the vertex data of the model.
 			*
 			* @param tex_coords
-			* 		Indexed array containing the texture coordinate data
-			* 		of the model.
+			*		Indexed array containing the texture coordinate data
+			*		of the model.
 			*
 			* @param normals
-			* 		Indexed array containing the normal data of the model.
+			*		Indexed array containing the normal data of the model.
 			*
 			* @param num_vertices
-			* 		Number of unique vertices in the model.
+			*		Number of unique vertices in the model.
 			*
 			* @param vertex_idx
-			* 		Index array of the vertex array.
+			*		Index array of the vertex array.
 			*
 			* @param tex_coord_idx
-			* 		Index array of the texture coordinate array.
+			*		Index array of the texture coordinate array.
 			*
 			* @param normal_idx
-			* 		Index array of the normal array.
+			*		Index array of the normal array.
 			*
 			* @param material_file
-			* 		The location of the file containing the material data.
+			*		The location of the file containing the material data.
 			*
 			* @returns
-			* 		A pointer to the data contained in the model.
+			*		A pointer to the data contained in the model.
 			*/
 			virtual Model* CreateModel( const std::string &name,
 										const float *vertices,

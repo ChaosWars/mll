@@ -8,7 +8,7 @@
 namespace mll{
 
 	/**
-	* \brief The Material class contains the materials used by a Model.
+	* @brief The Material class contains the materials used by a Model.
 	*/
 	class Material
 	{
@@ -18,16 +18,16 @@ namespace mll{
 			* Default constructor.
 			*
 			* @param name
-			* 			The name of the material.
+			*		The name of the material.
 			*
 			* @param diffuse_file
-			* 		The path of the diffuse map of the material.
+			*		The path of the diffuse map of the material.
 			*
 			* @param normal_file
-			* 		The path of normal map of the material.
+			*		The path of normal map of the material.
 			*
 			* @param specular_file
-			* 		The path of specular map of the material.
+			*		The path of specular map of the material.
 			*/
 			Material( const std::string &name = NULL,
 					  char *diffuse_file = NULL,
@@ -43,7 +43,7 @@ namespace mll{
 			* Get the materials name.
 			*
 			* @return
-			* 		The materials name.
+			*		The materials name.
 			*/
 			const std::string* Name();
 
@@ -51,7 +51,7 @@ namespace mll{
 			* Get the diffuse texture for the material.
 			*
 			* @return
-			* 		The diffuse texture for the material.
+			*		The diffuse texture for the material.
 			*/
 			const ILuint* DiffuseTexture();
 
@@ -59,7 +59,7 @@ namespace mll{
 			* Get the normal texture for the material.
 			*
 			* @return
-			* 		The normal texture for the material.
+			*		The normal texture for the material.
 			*/
 			const ILuint* NormalTexture();
 
@@ -75,7 +75,7 @@ namespace mll{
 			 * Get the ambient color for the material.
 			 *
 			 * @returns
-			 * 		An array containing the ambient color.
+			 *		An array containing the ambient color.
 			 */
 			const boost::array< float, 3 >* AmbientColor();
 
@@ -83,7 +83,7 @@ namespace mll{
 			 * Get the diffuse color for the material.
 			 *
 			 * @returns
-			 * 		An array containing the diffuse color.
+			 *		An array containing the diffuse color.
 			 */
 			const boost::array< float, 3 >* DiffuseColor();
 
@@ -91,7 +91,7 @@ namespace mll{
 			 * Get the specular color for the material.
 			 *
 			 * @returns
-			 * 		An array containing the specular color.
+			 *		An array containing the specular color.
 			 */
 			const boost::array< float, 3 >* SpecularColor();
 
@@ -99,7 +99,7 @@ namespace mll{
 			 * Get the alpha value of the material.
 			 *
 			 * @returns
-			 * 		The alpha value of the material.
+			 *		The alpha value of the material.
 			 */
 			float Alpha();
 
@@ -107,7 +107,7 @@ namespace mll{
 			 * Get the shininess of the material.
 			 *
 			 * @returns
-			 * 		The shininess value of the material.
+			 *		The shininess value of the material.
 			 */
 			float Shininess();
 
@@ -115,7 +115,7 @@ namespace mll{
 			 * If the materials specular values and map should be used.
 			 *
 			 * @returns
-			 * 		If the material has specular highlights.
+			 *		If the material has specular highlights.
 			 */
 			bool HasSpecular();
 
@@ -123,7 +123,7 @@ namespace mll{
 			* Set the name for the material.
 			*
 			* @param name
-			* 		The new name for the material.
+			*		The new name for the material.
 			*/
 			void SetName( const std::string &name );
 
@@ -131,7 +131,7 @@ namespace mll{
 			* Set the diffuse texture for the material.
 			*
 			* @param diffuse_file
-			* 		The location of the new diffuse texture for the material.
+			*		The location of the new diffuse texture for the material.
 			*/
 			void SetDiffuseTexture( char *diffuse_file );
 
@@ -139,7 +139,7 @@ namespace mll{
 			* Set the normal texture for the material.
 			*
 			* @param normal_file
-			* 		The location of the new normal texture for the material.
+			*		The location of the new normal texture for the material.
 			*/
 			void SetNormalTexture( char *normal_file );
 
@@ -147,7 +147,7 @@ namespace mll{
 			* Set the specular texure for the file.
 			*
 			* @param specular_file
-			* 		The location of the new specular texture for the material.
+			*		The location of the new specular texture for the material.
 			*/
 			void SetSpecularTexture( char *specular_file );
 
@@ -155,13 +155,13 @@ namespace mll{
 			 * Set the ambient color for the material.
 			 *
 			 * @param red
-			 * 		The red ambient channel of the material.
+			 *		The red ambient channel of the material.
 			 *
 			 * @param blue
 			 * 		The blue ambient channel of the material.
 			 *
 			 * @param green
-			 * 		The green ambient channel of the material.
+			 *		The green ambient channel of the material.
 			 */
 			void SetAmbientColor( float red, float green, float blue );
 
@@ -169,13 +169,13 @@ namespace mll{
 			 * Set the diffuse color for the material.
 			 *
 			 * @param red
-			 * 		The red diffuse channel of the material.
+			 *		The red diffuse channel of the material.
 			 *
 			 * @param blue
-			 * 		The blue diffuse channel of the material.
+			 *		The blue diffuse channel of the material.
 			 *
 			 * @param green
-			 * 		The green diffuse channel of the material.
+			 *		The green diffuse channel of the material.
 			 */
 			void SetDiffuseColor( float red, float green, float blue );
 
@@ -183,13 +183,13 @@ namespace mll{
 			 * Set the specular color for the material.
 			 *
 			 * @param red
-			 * 		The red specular channel of the material.
+			 *		The red specular channel of the material.
 			 *
 			 * @param blue
-			 * 		The blue specular channel of the material.
+			 *		The blue specular channel of the material.
 			 *
 			 * @param green
-			 * 		The green specular channel of the material.
+			 *		The green specular channel of the material.
 			 */
 			void SetSpecularColor( float red, float green, float blue );
 
@@ -197,7 +197,7 @@ namespace mll{
 			 * Set the alpha value of the material.
 			 *
 			 * @param alpha
-			 * 		The new alpha value of the material.
+			 *		The new alpha value of the material.
 			 */
 			void SetAlpha( float alpha );
 
@@ -205,7 +205,7 @@ namespace mll{
 			 * Set the shininess value of the material.
 			 *
 			 * @param shininess
-			 * 		The new shininess value of the material.
+			 *		The new shininess value of the material.
 			 */
 			void SetShininess( float shininess );
 
@@ -213,7 +213,7 @@ namespace mll{
 			 * Turn the specular values on or off.
 			 *
 			 * @param has_specular
-			 * 		Engage/disengage the specular values of the material.
+			 *		Engage/disengage the specular values of the material.
 			 */
 			void SetHasSpecular( bool has_specular );
 
