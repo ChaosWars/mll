@@ -9,9 +9,9 @@
 namespace mll{
 
 	/**
-	* \brief This class loads a Wavefront *.obj file and parses both the
-	* model data in the file as well as the material data in the
-	* corresponding *.mtl file.
+	* @brief This class loads a Wavefront *.obj file and parses both the
+	*		 model data in the file as well as the material data in the
+	* 		 corresponding *.mtl file.
 	*/
 	class OBJLoader : ModelLoader
 	{
@@ -44,6 +44,37 @@ namespace mll{
 			* Helper function that reorganises the the data
 			* loaded from the *.obj file into a format expected
 			* by model.h
+			*
+			* @param name
+			*		The name of the model.
+			*
+			* @param vertices
+			*		Indexed array containing the vertex data of the model.
+			*
+			* @param tex_coords
+			*		Indexed array containing the texture coordinate data
+			*		of the model.
+			*
+			* @param normals
+			*		Indexed array containing the normal data of the model.
+			*
+			* @param num_vertices
+			*		Number of unique vertices in the model.
+			*
+			* @param vertex_idx
+			*		Index array of the vertex array.
+			*
+			* @param tex_coord_idx
+			*		Index array of the texture coordinate array.
+			*
+			* @param normal_idx
+			*		Index array of the normal array.
+			*
+			* @param material_file
+			*		The location of the file containing the material data.
+			*
+			* @returns
+			*		A pointer to the data contained in the model.
 			*/
 			Model* CreateModel( const std::string &name,
 								const float *vertices,

@@ -8,7 +8,7 @@
 namespace mll{
 
 	/**
-	* \brief The Model class provides an interface to data needed by 3D graphics API's,
+	* @brief The Model class provides an interface to data needed by 3D graphics API's,
 	* layed out in a way suitable for direct use OpenGL without the need to convert the
 	* data.
 	*/
@@ -34,32 +34,32 @@ namespace mll{
 
 			/**
 			* @returns
-			* 		The name of the model.
+			*		The name of the model.
 			*/
 			const std::string* Name();
 
 			/**
 			* @returns
-			* 		The vertex data for the model.
+			*		The vertex data for the model.
 			*/
 			const std::vector< float >* Vertices();
 
 			/**
 			* @returns
-			* 		The texture coordinate data for the model.
+			*		The texture coordinate data for the model.
 			*/
 			const std::vector< float >* TextureCoords();
 
 			/**
 			* @returns
-			* 		The normal data for the model.
+			*		The normal data for the model.
 			*/
 			const std::vector< float >* Normals();
 
 			/**
 			* @returns
 			*		An array of Material containing the materials
-			* 		used by the model.
+			*		used by the model.
 			*/
 			const std::vector< Material*>* Materials();
 

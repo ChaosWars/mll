@@ -7,8 +7,8 @@
 namespace mll{
 
 	/**
-	* The MaterialLoader class is an abstract base class that loades the
-	* materials assosiated with a model into memory.
+	* @brief The MaterialLoader class is an abstract base class that loades the
+	*		materials assosiated with a model into memory.
 	*/
 	class MaterialLoader
 	{
@@ -30,10 +30,10 @@ namespace mll{
 			* memory in a manner that can easily be used by 3D API's.
 			*
 			* @param material_file
-			* 		The file to be loaded from disk.
+			*		The file to be loaded from disk.
 			*
 			* @returns
-			* 		The reference to the new Material object.
+			*		The reference to the new Material object.
 			*/
 			virtual std::vector< Material* >* LoadMaterials( const char *material_file );
 	};
