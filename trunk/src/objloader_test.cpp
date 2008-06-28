@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
 	if( model != NULL ){
 		printf( "Model loaded succesfully.\n" );
-		delete model;
+		//delete model;
 		return EXIT_SUCCESS;
 	}else{
 		printf( "Model failed to load.\n" );
