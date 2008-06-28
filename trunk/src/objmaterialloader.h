@@ -1,7 +1,6 @@
 #ifndef _OBJMATERIALLOADER_H_
 #define _OBJMATERIALLOADER_H_
 
-#include <vector>
 #include "materialloader.h"
 #include "material.h"
 
@@ -34,7 +33,7 @@ namespace mll{
 			 * @returns
 			 *		A vector containing pointers to the loaded materials.
 			 */
-			std::vector< Material* >* LoadMaterials( const char *material_file );
+			Material** LoadMaterials( const char *material_file );
 	};
 
 }

@@ -21,11 +21,11 @@ namespace mll{
 			* assigned to pointers maintained by the class and MUST NOT be
 			* deleted by you! The class will delete them when it is destroyed.
 			*/
-			Model( std::string *name,
-				   std::vector< float > *vertices = NULL,
-				   std::vector< float > *tex_coords = NULL,
-				   std::vector< float > *normals = NULL,
-				   std::vector< Material* > *material = NULL );
+			Model( char *name,
+			       float *vertices = NULL,
+			       float *tex_coords = NULL,
+			       float *normals = NULL,
+			       Material **material = NULL );
 
 			/**
 			* Destroys the Model
@@ -36,39 +36,61 @@ namespace mll{
 			* @returns
 			*		The name of the model.
 			*/
-			const std::string* Name();
+			const char* Name();
 
 			/**
-			* @returns
-			*		The vertex data for the model.
-			*/
-			const std::vector< float >* Vertices();
+			 * @returns
+			 * 		The number of normals in the model.
+			 */
+			int NumNormals();
 
 			/**
-			* @returns
-			*		The texture coordinate data for the model.
-			*/
-			const std::vector< float >* TextureCoords();
+			 * @returns
+			 * 		The number of texture coordinates in the model.
+			 */
+			int NumTextureCoords();
+
+			/**
+			 * @returns
+			 * 		The number of vertices in the model.
+			 */
+			int NumVertices();
 
 			/**
 			* @returns
 			*		The normal data for the model.
 			*/
-			const std::vector< float >* Normals();
+			const float* Normals();
+			
+			/**
+			* @returns
+			*		The texture coordinate data for the model.
+			*/
+			const float* TextureCoords();
+			
+			/**
+			* @returns
+			*		The vertex data for the model.
+			*/
+			const float* Vertices();
 
 			/**
 			* @returns
 			*		An array of Material containing the materials
 			*		used by the model.
 			*/
-			const std::vector< Material*>* Materials();
+			Material** Materials();
 
 		private:
-			std::string *name;
-			std::vector< float > *vertices;
-			std::vector< float > *tex_coords;
-			std::vector< float > *normals;
-			std::vector< Material* > *materials;
+			char *name;
+			int num_normals;
+			int num_texture_coords;
+			int num_vertices;
+			int num_materials;
+			float *normals;
+			float *tex_coords;
+			float *vertices;
+			Material **materials;
 	};
 
 }
