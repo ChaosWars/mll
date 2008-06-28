@@ -168,15 +168,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 	file.close();
 
-	model = CreateModel( *name,
-						 vertices,
-						 tex_coords,
-						 normals,
-						 num_vertices,
-						 vertex_indices,
-						 tex_coord_indices,
-						 normal_indices,
-						 *material_file );
+	model = CreateModel( *name, vertices, tex_coords, normals, num_vertices, vertex_indices,
+			     tex_coord_indices, normal_indices, *material_file );
 
 	delete name ;
 	delete material_file;
@@ -191,14 +184,14 @@ Model* OBJLoader::LoadModel( const char *objfile )
 }
 
 Model* OBJLoader::CreateModel( const std::string &name,
-							   const float *vertices,
-							   const float *tex_coords,
-							   const float *normals,
-							   const int num_vertices,
-							   const int *vertex_idx,
-							   const int *tex_coord_idx,
-							   const int *normal_idx,
-							   const std::string &material_file )
+			       const float *vertices,
+			       const float *tex_coords,
+			       const float *normals,
+			       const int num_vertices,
+			       const int *vertex_idx,
+			       const int *tex_coord_idx,
+			       const int *normal_idx,
+			       const std::string &material_file )
 {
 	Model *model;
 	std::string *_name = new std::string( name );
