@@ -21,7 +21,7 @@ namespace mll{
 			/**
 			* Destroys the model loader.
 			*/
-			~ModelLoader();
+			virtual ~ModelLoader();
 
 			/**
 			* Loads a file from disk with the data describing the model.
@@ -74,14 +74,14 @@ namespace mll{
 			*		A pointer to the data contained in the model.
 			*/
 			virtual Model* CreateModel( const std::string &name,
-										const float *vertices,
-										const float *tex_coords,
-										const float *normals,
-										const int num_vertices,
-										const int *vertex_idx,
-										const int *tex_coord_idx,
-										const int *normal_idx,
-										const std::string &material_file );
+							const float *vertices,
+							const float *tex_coords,
+							const float *normals,
+							const int num_vertices,
+							const int *vertex_idx,
+							const int *tex_coord_idx,
+							const int *normal_idx,
+							const std::string &material_file );
 
 	};
 
