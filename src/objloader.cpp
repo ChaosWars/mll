@@ -18,7 +18,6 @@ Model* OBJLoader::LoadModel( const char *objfile )
 {
 	std::ifstream file;
 	std::string buffer;
-	Model *model = NULL;
 
 	file.open( objfile, std::ifstream::in );
 
@@ -289,16 +288,6 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 			printf( "sscanf returned %d\n", read );
 
- 			/* printf( "vertex %d\n",vertex_indices[ face_index ] );
- 			printf( "texture %d\n", tex_coord_indices[ face_index ] );
- 			printf( "normal %d\n", normal_indices[ face_index ] );
- 			printf( "vertex %d\n", vertex_indices[ face_index + 1 ] );
- 			printf( "texture %d\n", tex_coord_indices[ face_index + 1 ] );
- 			printf( "normal %d\n", normal_indices[ face_index + 1 ] );
- 			printf( "vertex %d\n", vertex_indices[ face_index + 2 ] );
- 			printf( "texture %d\n", tex_coord_indices[ face_index + 2 ] );
- 			printf( "normal %d\n", normal_indices[ face_index + 2 ] ); */
-
 			face_index += 3;
 			
 		} else if( buffer.substr( 0, 1 ) == "v" ){
@@ -318,7 +307,7 @@ Model* OBJLoader::LoadModel( const char *objfile )
 	file.close();
 	printf( "File closed.\n" );
 
-	model = CreateModel( *name, vertices, tex_coords, normals, num_vertices, vertex_indices,
+	Model *model = CreateModel( *name, vertices, tex_coords, normals, num_vertices, vertex_indices,
 			     tex_coord_indices, normal_indices, *material_file );
 
 	printf( "Created model.\n" );
