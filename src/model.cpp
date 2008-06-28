@@ -3,11 +3,11 @@
 
 using namespace mll;
 
-Model::Model( std::string *name,
-			  std::vector< float > *vertices,
-			  std::vector< float > *tex_coords,
-			  std::vector< float > *normals,
-			  std::vector< Material* > *materials )
+Model::Model( char *name,
+		float *vertices,
+		float *tex_coords,
+		float *normals,
+		Material **materials )
 {
 	if( name != NULL )
 		this->name = name;
@@ -53,42 +53,40 @@ Model::~Model()
 		delete materials;
 }
 
-const std::string* Model::Name()
+const char* Model::Name()
 {
 	if( name != NULL )
-		return const_cast< std::string* >( name );
+		return const_cast< char* >( name );
 	else
 		return NULL;
 }
 
-const std::vector< float >* Model::Vertices()
+const float* Model::Vertices()
 {
 	if( vertices != NULL )
-		return const_cast< std::vector< float >* >( vertices );
+		return const_cast< float* >( vertices );
 	else
 		return NULL;
 }
 
-const std::vector< float >* Model::TextureCoords()
+const float* Model::TextureCoords()
 {
 	if( tex_coords != NULL)
-		return const_cast< std::vector< float >* >( tex_coords );
+		return const_cast< float* >( tex_coords );
 	else
 		return NULL;
 }
 
-const std::vector< float >* Model::Normals()
+const float* Model::Normals()
 {
 	if( normals != NULL )
-		return const_cast< std::vector< float >* >( normals );
+		return const_cast< float* >( normals );
 	else
 		return NULL;
 }
 
-const std::vector< Material* >* Model::Materials()
+Material** Model::Materials()
 {
-	if( materials != NULL )
-		return const_cast< std::vector< Material* >* >( materials );
-	else
-		return NULL;
+	return materials;
 }
+

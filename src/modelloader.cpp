@@ -6,15 +6,15 @@ ModelLoader::ModelLoader()
 {
 }
 
-virtual ModelLoader::~ModelLoader()
+ModelLoader::~ModelLoader()
 {
 }
 
-virtual Model* ModelLoader::LoadModel( const char *model_file )
+Model* ModelLoader::LoadModel( const char *model_file )
 {
 }
 
-virtual Model* ModelLoader::CreateModel( const std::string &name,
+Model* ModelLoader::CreateModel( const std::string &name,
 				const float *vertices,
 				const float *tex_coords,
 				const float *normals,

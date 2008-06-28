@@ -1,7 +1,6 @@
 #ifndef _MATERIALLOADER_H_
 #define _MATERIALLOADER_H_
 
-#include <vector>
 #include "material.h"
 
 namespace mll{
@@ -17,12 +16,12 @@ namespace mll{
 			/**
 			* Creates a ModelLoader.
 			*/
-			MaterialLoader(){};
+			MaterialLoader();
 
 			/**
 			* Destroys the ModelLoader.
 			*/
-			~MaterialLoader(){};
+			virtual ~MaterialLoader();
 
 			/**
 			* Loads a file containing the references to the materials. After
@@ -35,7 +34,7 @@ namespace mll{
 			* @returns
 			*		The reference to the new Material object.
 			*/
-			virtual std::vector< Material* >* LoadMaterials( const char *material_file );
+			virtual Material** LoadMaterials( const char *material_file );
 	};
 }
 

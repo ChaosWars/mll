@@ -13,11 +13,11 @@ OBJMaterialLoader::~OBJMaterialLoader()
 {
 }
 
-std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material_file )
+Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 {
 	std::ifstream file;
 	std::string buffer;
-	std::vector< Material* > *materials = NULL;
+	Material **materials = NULL;
 
 	file.open( material_file, std::ifstream::in );
 
@@ -37,7 +37,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 	}
 
 	printf( "%d materials in material file.\n", num_materials );
-	materials = new std::vector< Material* >( num_materials );
+	materials = new Material *[num_materials];
 
 	//Rewind file pointer in preperation for the second pass.
 	file.clear();
@@ -59,6 +59,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 	int specular = 1;
 	bool has_specular = false;
 	int material_idx = 0;
+	int cur_material = 0;
 
 	//Second pass reads the material properties
 	while( !file.eof() ){
@@ -142,17 +143,17 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 			getline( file, buffer );
 		}
 
-		materials->push_back( new Material( *name, const_cast< char* >( diffuse_map->c_str() ) ) );
-		materials->back()->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
-		materials->back()->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
+		materials[cur_material] = new Material( *name, const_cast< char* >( diffuse_map->c_str() ) );
+		materials[cur_material]->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
+		materials[cur_material]->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
 
 		if( has_specular ){
-			materials->back()->SetHasSpecular( true );
-			materials->back()->SetSpecularColor( specular_red, specular_green, specular_blue );
+			materials[cur_material]->SetHasSpecular( true );
+			materials[cur_material]->SetSpecularColor( specular_red, specular_green, specular_blue );
 		}
 
-		materials->back()->SetAlpha( alpha );
-		materials->back()->SetShininess( shininess );
+		materials[cur_material]->SetAlpha( alpha );
+		materials[cur_material]->SetShininess( shininess );
 
 		if( diffuse_map != NULL ){
 			delete diffuse_map;
@@ -174,6 +175,7 @@ std::vector< Material* >* OBJMaterialLoader::LoadMaterials( const char *material
 		has_specular = false;
 		
 		++material_idx;
+		++cur_material;
 	}
 
 	file.close();
