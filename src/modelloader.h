@@ -35,9 +35,9 @@ namespace mll{
 			* @returns
 			*		The data contained in the file.
 			*/
-			virtual Model* LoadModel( const char *model_file );
+			virtual Model* LoadModel( const char *model_file ) = 0;
 
-		private:
+		protected:
 
 			/**
 			* Helper function for creating a new Model object.
@@ -73,15 +73,15 @@ namespace mll{
 			* @returns
 			*		A pointer to the data contained in the model.
 			*/
-			virtual Model* CreateModel( const std::string &name,
-							const float *vertices,
-							const float *tex_coords,
-							const float *normals,
-							const int num_vertices,
-							const int *vertex_idx,
-							const int *tex_coord_idx,
-							const int *normal_idx,
-							const std::string &material_file );
+			virtual Model* CreateModel( const char *name = NULL,
+							const float *vertices = NULL,
+							const float *tex_coords = NULL,
+							const float *normals = NULL,
+							const int num_vertices = 0,
+							const int *vertex_idx = NULL,
+							const int *tex_coord_idx = NULL,
+							const int *normal_idx = NULL,
+							const char *material_file = NULL) = 0;
 
 	};
 

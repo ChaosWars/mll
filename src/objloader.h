@@ -38,7 +38,7 @@ namespace mll{
 			*/
 			Model* LoadModel( const char *objfile );
 
-		private:
+		protected:
 
 			/**
 			* Helper function that reorganises the the data

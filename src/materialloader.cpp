@@ -10,8 +10,3 @@ MaterialLoader::MaterialLoader()
 MaterialLoader::~MaterialLoader()
 {
 }
-
-int MaterialLoader::LoadMaterials( const char *material_file, Material **materials )
-{
-	return 0;
-}
