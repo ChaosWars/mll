@@ -44,7 +44,7 @@ Model* OBJLoader::LoadModel( const char *objfile )
 		getline( file, buffer );
 
 		if( buffer.substr( 0, 6 ) == "mtllib" ){
-			material_file = new char[buffer.length() - 7];
+			material_file = new char[buffer.length() - 6];
 			sscanf( buffer.c_str(), "mtllib %s", material_file );
 		} else if( buffer.substr( 0, 2 ) == "vn" ){
 			++num_normals;
@@ -55,7 +55,7 @@ Model* OBJLoader::LoadModel( const char *objfile )
 		} else if( buffer.substr( 0, 1 ) == "v" ){
 			++num_indexed_vertices;
 		} else if( buffer.substr( 0, 1 ) == "o" ){
-			name = new char[buffer.length() - 2];
+			name = new char[buffer.length() - 1];
 			sscanf(buffer.c_str(), "o %s", name);
 		}
 	}
@@ -155,7 +155,7 @@ Model* OBJLoader::LoadModel( const char *objfile )
 				vertex_indices[ face_index + 2 ]--;
 			}else if( read == 4 ){ /* The model is quadrangulated */
 				vertex_indices[ face_index ] = v1;
-			        vertex_indices[ face_index + 1 ] = v2;
+			    vertex_indices[ face_index + 1 ] = v2;
    				vertex_indices[ face_index + 2 ] = v3;
 				vertex_indices[ face_index + 3 ] = v4;
 				vertex_indices[ face_index ]--;
@@ -172,11 +172,11 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 				if( read == 6 ){
 					vertex_indices[ face_index ] = v1;
-    					normal_indices[ face_index ] = n1;
-    					vertex_indices[ face_index + 1 ] = v2;
-    					normal_indices[ face_index + 1 ] = n2;
-    					vertex_indices[ face_index + 2 ] = v3;
-    					normal_indices[ face_index + 2 ] = n3;
+    				normal_indices[ face_index ] = n1;
+    				vertex_indices[ face_index + 1 ] = v2;
+    				normal_indices[ face_index + 1 ] = n2;
+    				vertex_indices[ face_index + 2 ] = v3;
+    				normal_indices[ face_index + 2 ] = n3;
 					vertex_indices[ face_index ]--;
 					normal_indices[ face_index ]--;
 					vertex_indices[ face_index + 1 ]--;
@@ -185,13 +185,13 @@ Model* OBJLoader::LoadModel( const char *objfile )
 					normal_indices[ face_index + 2 ]--;
 				}else if( read == 8 ){
 					vertex_indices[ face_index ] = v1;
-    					normal_indices[ face_index ] = n1;
-    					vertex_indices[ face_index + 1 ] = v2;
-    					normal_indices[ face_index + 1 ] = n2;
-    					vertex_indices[ face_index + 2 ] = v3;
-    					normal_indices[ face_index + 2 ] = n3;
+    				normal_indices[ face_index ] = n1;
+    				vertex_indices[ face_index + 1 ] = v2;
+    				normal_indices[ face_index + 1 ] = n2;
+    				vertex_indices[ face_index + 2 ] = v3;
+    				normal_indices[ face_index + 2 ] = n3;
 					vertex_indices[ face_index + 3 ] = v4;
-    					normal_indices[ face_index + 3 ] = n4;
+    				normal_indices[ face_index + 3 ] = n4;
 					vertex_indices[ face_index ]--;
 					normal_indices[ face_index ]--;
 					vertex_indices[ face_index + 1 ]--;
@@ -209,11 +209,11 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 				if( read == 6 ){
 					vertex_indices[ face_index ] = v1;
-    					tex_coord_indices[ face_index ] = t1;
-    					vertex_indices[ face_index + 1 ] = v2;
-    					tex_coord_indices[ face_index + 1 ] = t2;
-    					vertex_indices[ face_index + 2 ] = v3;
-    					tex_coord_indices[ face_index + 2 ] = t3;
+    				tex_coord_indices[ face_index ] = t1;
+    				vertex_indices[ face_index + 1 ] = v2;
+    				tex_coord_indices[ face_index + 1 ] = t2;
+    				vertex_indices[ face_index + 2 ] = v3;
+    				tex_coord_indices[ face_index + 2 ] = t3;
 					vertex_indices[ face_index ]--;
 					tex_coord_indices[ face_index ]--;
 					vertex_indices[ face_index + 1 ]--;
@@ -222,13 +222,13 @@ Model* OBJLoader::LoadModel( const char *objfile )
 					tex_coord_indices[ face_index + 2 ]--;
 				}else if( read == 8 ){
 					vertex_indices[ face_index ] = v1;
-    					tex_coord_indices[ face_index ] = t1;
-    					vertex_indices[ face_index + 1 ] = v2;
-    					tex_coord_indices[ face_index + 1 ] = t2;
-    					vertex_indices[ face_index + 2 ] = v3;
-    					tex_coord_indices[ face_index + 2 ] = t3;
+    				tex_coord_indices[ face_index ] = t1;
+    				vertex_indices[ face_index + 1 ] = v2;
+    				tex_coord_indices[ face_index + 1 ] = t2;
+    				vertex_indices[ face_index + 2 ] = v3;
+    				tex_coord_indices[ face_index + 2 ] = t3;
 					vertex_indices[ face_index + 3 ] = v4;
-    					tex_coord_indices[ face_index + 3 ] = t4;
+    				tex_coord_indices[ face_index + 3 ] = t4;
 					vertex_indices[ face_index ]--;
 					tex_coord_indices[ face_index ]--;
 					vertex_indices[ face_index + 1 ]--;
@@ -242,12 +242,12 @@ Model* OBJLoader::LoadModel( const char *objfile )
 			}else if( read < 6 ){ /* Lastly, check to see if it contains vertice, texture and normal information */
 				read = sscanf( buffer.c_str(),
      					       "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
-					       &v1, &t1, &n1, &v2, &t2, &n2, &v3, &t3, &n3, &v4, &t4, &n4 );
+						       &v1, &t1, &n1, &v2, &t2, &n2, &v3, &t3, &n3, &v4, &t4, &n4 );
 
 				if( read == 9 ){
 					vertex_indices[ face_index ] = v1;
-    					tex_coord_indices[ face_index ] = t1;
-    					normal_indices[ face_index ] = n1;
+    				tex_coord_indices[ face_index ] = t1;
+    				normal_indices[ face_index ] = n1;
 					vertex_indices[ face_index + 1 ] = v2;
 					tex_coord_indices[ face_index + 1 ] = t2;
 					normal_indices[ face_index + 1 ] = n2;
@@ -265,8 +265,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 					normal_indices[ face_index + 2 ]--;
 				}else if( read == 12 ){
 					vertex_indices[ face_index ] = v1;
-    					tex_coord_indices[ face_index ] = t1;
-    					normal_indices[ face_index ] = n1;
+    				tex_coord_indices[ face_index ] = t1;
+    				normal_indices[ face_index ] = n1;
 					vertex_indices[ face_index + 1 ] = v2;
 					tex_coord_indices[ face_index + 1 ] = t2;
 					normal_indices[ face_index + 1 ] = n2;
@@ -317,8 +317,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 	printf( "Created model.\n" );
 
-	delete[] name ;
-	delete[] material_file;
+	delete name ;
+	delete material_file;
 	delete[] vertices;
 	delete[] tex_coords;
 	delete[] normals;
@@ -395,11 +395,11 @@ Model* OBJLoader::CreateModel( const char *name,
 
 	if( material_file != NULL ){
 		printf( "Reading materials.\n" );
-		OBJMaterialLoader *ml = new OBJMaterialLoader();
+		OBJMaterialLoader ml;
 		Material **materials = NULL;
-		cout << "Initial adress of materials is " << &materials << "(should be 0)" << endl;
-		int num_materials = ml->LoadMaterials( material_file, materials );
-		cout << "Adress of materials after ml->LoadMaterials() is " << &materials << endl;
+		cout << "Initial adress of materials is " << materials << "(should be 0)" << endl;
+		int num_materials = ml.LoadMaterials( material_file, materials );
+		cout << "Adress of materials after ml->LoadMaterials() is " << materials << endl;
 		printf( "Creating model.\n" );
 		model = new Model( _name, _vertices, _tex_coords, _normals, num_vertices, num_materials, materials );
 	}else{
