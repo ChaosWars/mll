@@ -15,7 +15,7 @@ OBJMaterialLoader::~OBJMaterialLoader()
 {
 }
 
-int OBJMaterialLoader::LoadMaterials( const char material_file[], Material *materials[] )
+int OBJMaterialLoader::LoadMaterials( const char *&material_file, Material **&materials )
 {
 	std::ifstream file;
 	std::string buffer;
@@ -38,9 +38,9 @@ int OBJMaterialLoader::LoadMaterials( const char material_file[], Material *mate
 	}
 
 	printf( "%d materials in material file.\n", num_materials );
-	cout << "Initial adress of materials inside LoadMaterials is " << &materials << "(should still be 0)" << endl;
+	cout << "Initial adress of materials inside LoadMaterials is " << materials << "(should still be 0)" << endl;
 	materials = new Material *[num_materials];
-	cout << "Adress of materials after materials = new Material*[" << num_materials << "] is " << &materials << endl;
+	cout << "Adress of materials after materials = new Material*[" << num_materials << "] is " << materials << endl;
 
 	//Rewind file pointer in preperation for the second pass.
 	file.clear();
@@ -71,7 +71,7 @@ int OBJMaterialLoader::LoadMaterials( const char material_file[], Material *mate
 			getline( file, buffer );
 		}
 
-		name = new char[buffer.length() - 7];
+		name = new char[buffer.length() - 6];
 		sscanf( buffer.c_str(), "newmtl %s", name );
 
 		printf( "name : %s\n", name );
@@ -81,7 +81,7 @@ int OBJMaterialLoader::LoadMaterials( const char material_file[], Material *mate
 
 			if( buffer.substr( 0, 6 ) == "map_Kd" ){
 
-				diffuse_map = new char[buffer.length() - 7];
+				diffuse_map = new char[buffer.length() - 6];
 				sscanf( buffer.c_str(), "map_Kd %s", diffuse_map );
 				printf( "diffuse_map : %s\n", diffuse_map );
 
@@ -135,7 +135,7 @@ int OBJMaterialLoader::LoadMaterials( const char material_file[], Material *mate
 			getline( file, buffer );
 		}
 
-		cout << "Adress of materials[" << cur_material << "] before allocation is " << &materials[cur_material] << endl;
+		cout << "Adress of materials[" << cur_material << "] before allocation is " << materials[cur_material] << endl;
 		materials[cur_material] = new Material( name, const_cast< char* >( diffuse_map ) );
 		cout <<  "Adress of materials[" << cur_material << "] after allocation is " << materials[cur_material] << endl;
 		materials[cur_material]->SetAmbientColor( ambient_red, ambient_green, ambient_blue );

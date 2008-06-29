@@ -39,7 +39,7 @@ namespace mll{
 			* @returns
 			*		The number of Materials read.
 			*/
-			virtual int LoadMaterials( const char material_file[], Material *materials[] ) = 0;
+			virtual int LoadMaterials( const char *&material_file, Material **&materials ) = 0;
 	};
 }
 
