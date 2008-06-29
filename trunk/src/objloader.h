@@ -76,7 +76,7 @@ namespace mll{
 			* @returns
 			*		A pointer to the data contained in the model.
 			*/
-			Model* CreateModel( const std::string &name = NULL,
+			Model* CreateModel( const char *name = NULL,
 						const float *vertices = NULL,
 						const float *tex_coords = NULL,
 						const float *normals = NULL,
@@ -84,7 +84,7 @@ namespace mll{
 						const int *vertex_idx = NULL,
 						const int *tex_coord_idx = NULL,
 						const int *normal_idx = NULL,
-						const std::string &material_file = NULL );
+						const char *material_file = NULL );
 
 	};
 

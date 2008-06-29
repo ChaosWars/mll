@@ -29,10 +29,10 @@ namespace mll{
 			* @param specular_file
 			*		The path of specular map of the material.
 			*/
-			Material( const std::string &name = NULL,
-					  char *diffuse_file = NULL,
-					  char *normal_file = NULL,
-					  char *specular_file = NULL );
+			Material( char *name = NULL,
+				  char *diffuse_file = NULL,
+				  char *normal_file = NULL,
+				  char *specular_file = NULL );
 
 			/**
 			* Destroy the material.
@@ -45,7 +45,7 @@ namespace mll{
 			* @return
 			*		The materials name.
 			*/
-			const std::string* Name();
+			const char *Name();
 
 			/**
 			* Get the diffuse texture for the material.
@@ -125,7 +125,7 @@ namespace mll{
 			* @param name
 			*		The new name for the material.
 			*/
-			void SetName( const std::string &name );
+			void SetName( const char *name );
 
 			/**
 			* Set the diffuse texture for the material.
@@ -218,7 +218,7 @@ namespace mll{
 			void SetHasSpecular( bool has_specular );
 
 		private:
-			std::string *name;
+			char *_name;
 			ILuint diffuse_tex;
 			ILuint normal_tex;
 			ILuint specular_tex;

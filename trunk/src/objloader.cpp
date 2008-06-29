@@ -29,8 +29,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 	/*	We loop through the file twice.
 		The first pass reads how much space to allocate
 		for the model, the second pass reads the data. */
-	std::string *name = NULL;
-	std::string *material_file = NULL;
+	char *name = NULL;
+	char *material_file = NULL;
 	int num_indexed_vertices = 0;
 	int num_tex_coords = 0;
 	int num_normals = 0;
@@ -42,9 +42,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 		getline( file, buffer );
 
 		if( buffer.substr( 0, 6 ) == "mtllib" ){
-
-		material_file = new std::string( buffer, 7, buffer.length() - 7 );
-
+			material_file = new char[buffer.length() - 7];
+			sscanf( buffer.c_str(), "mtllib %s", material_file );
 		} else if( buffer.substr( 0, 2 ) == "vn" ){
 			++num_normals;
 		} else if( buffer.substr( 0, 2 ) == "vt" ){
@@ -54,8 +53,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 		} else if( buffer.substr( 0, 1 ) == "v" ){
 			++num_indexed_vertices;
 		} else if( buffer.substr( 0, 1 ) == "o" ){
-
-		name = new std::string( buffer, 2, buffer.length() - 2 );
+			name = new char[buffer.length() - 2];
+			sscanf(buffer.c_str(), "o %s", name);
 		}
 	}
 
@@ -63,8 +62,8 @@ Model* OBJLoader::LoadModel( const char *objfile )
 	printf( "Read %d texture coordinates\n", num_tex_coords );
 	printf( "Read %d vertices\n", num_indexed_vertices );
 	printf( "Read %d faces\n", num_faces );
-	printf( "material_file : %s\n", material_file->c_str() );
-	printf( "name : %s\n", name->c_str() );
+	printf( "material_file : %s\n", material_file );
+	printf( "name : %s\n", name );
 
 	//Allocate the memory for the data
 	int *normal_indices = NULL;
@@ -307,24 +306,24 @@ Model* OBJLoader::LoadModel( const char *objfile )
 	file.close();
 	printf( "File closed.\n" );
 
-	Model *model = CreateModel( *name, vertices, tex_coords, normals, num_vertices, vertex_indices,
-			     tex_coord_indices, normal_indices, *material_file );
+	Model *model = CreateModel( name, vertices, tex_coords, normals, num_vertices, vertex_indices,
+			     tex_coord_indices, normal_indices, material_file );
 
 	printf( "Created model.\n" );
 
 	delete name ;
 	delete material_file;
-	delete[] vertices;
-	delete[] tex_coords;
-	delete[] normals;
-	delete[] vertex_indices;
-	delete[] tex_coord_indices;
-	delete[] normal_indices;
+	delete vertices;
+	delete tex_coords;
+	delete normals;
+	delete vertex_indices;
+	delete tex_coord_indices;
+	delete normal_indices;
 
 	return model;
 }
 
-Model* OBJLoader::CreateModel( const std::string &name,
+Model* OBJLoader::CreateModel( const char *name,
 			       const float *vertices,
 			       const float *tex_coords,
 			       const float *normals,
@@ -332,12 +331,12 @@ Model* OBJLoader::CreateModel( const std::string &name,
 			       const int *vertex_idx,
 			       const int *tex_coord_idx,
 			       const int *normal_idx,
-			       const std::string &material_file )
+			       const char *material_file )
 {
 	printf( "Beginning model creation.\n" );
 	Model *model;
-	char *_name = new char[name.size() + 1];
-	strcpy( _name, name.c_str() );
+	char *_name = new char[strlen(name)];
+	strcpy(_name, name);
 	float *_vertices = new float[num_vertices];
 	float *_tex_coords = new float[num_vertices];
 	float *_normals = new float[num_vertices];
@@ -382,7 +381,7 @@ Model* OBJLoader::CreateModel( const std::string &name,
 	if( &material_file != NULL ){
 		printf( "Reading materials.\n" );
 		OBJMaterialLoader *ml = new OBJMaterialLoader();
-		Material **materials = ml->LoadMaterials( material_file.c_str() );
+		Material **materials = ml->LoadMaterials( material_file );
 		printf( "Creating model.\n" );
 		model = new Model( _name, _vertices, _tex_coords, _normals, materials );
 	}else{
