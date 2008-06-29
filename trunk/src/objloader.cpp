@@ -1,10 +1,12 @@
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include "objloader.h"
 #include "objmaterialloader.h"
 #include "material.h"
 
 using namespace mll;
+using namespace std;
 
 OBJLoader::OBJLoader()
 {
@@ -62,8 +64,12 @@ Model* OBJLoader::LoadModel( const char *objfile )
 	printf( "Read %d texture coordinates\n", num_tex_coords );
 	printf( "Read %d vertices\n", num_indexed_vertices );
 	printf( "Read %d faces\n", num_faces );
-	printf( "material_file : %s\n", material_file );
-	printf( "name : %s\n", name );
+
+	if( material_file != NULL)
+		printf( "material_file : %s\n", material_file );
+	
+	if(name != NULL)
+		printf( "name : %s\n", name );
 
 	//Allocate the memory for the data
 	int *normal_indices = NULL;
@@ -311,14 +317,14 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 	printf( "Created model.\n" );
 
-	delete name ;
-	delete material_file;
-	delete vertices;
-	delete tex_coords;
-	delete normals;
-	delete vertex_indices;
-	delete tex_coord_indices;
-	delete normal_indices;
+	delete[] name ;
+	delete[] material_file;
+	delete[] vertices;
+	delete[] tex_coords;
+	delete[] normals;
+	delete[] vertex_indices;
+	delete[] tex_coord_indices;
+	delete[] normal_indices;
 
 	return model;
 }
@@ -334,12 +340,21 @@ Model* OBJLoader::CreateModel( const char *name,
 			       const char *material_file )
 {
 	printf( "Beginning model creation.\n" );
-	Model *model;
+	Model *model = NULL;
+	float *_vertices = NULL;
+	float *_tex_coords = NULL;
+	float *_normals = NULL;
 	char *_name = new char[strlen(name)];
 	strcpy(_name, name);
-	float *_vertices = new float[num_vertices];
-	float *_tex_coords = new float[num_vertices];
-	float *_normals = new float[num_vertices];
+
+	if(vertices != NULL)
+		_vertices = new float[num_vertices];
+
+	if(tex_coords != NULL)
+		_tex_coords = new float[num_vertices];
+
+	if(normals != NULL)
+		_normals = new float[num_vertices];
 
 	printf( "Setup complete. Filling arrays.\n" );
 
@@ -378,11 +393,13 @@ Model* OBJLoader::CreateModel( const char *name,
 
 	printf( "Arrays filled.\n" );
 
-	if( &material_file != NULL ){
+	if( material_file != NULL ){
 		printf( "Reading materials.\n" );
 		OBJMaterialLoader *ml = new OBJMaterialLoader();
 		Material **materials = NULL;
+		cout << "Initial adress of materials is " << &materials << "(should be 0)" << endl;
 		int num_materials = ml->LoadMaterials( material_file, materials );
+		cout << "Adress of materials after ml->LoadMaterials() is " << &materials << endl;
 		printf( "Creating model.\n" );
 		model = new Model( _name, _vertices, _tex_coords, _normals, num_vertices, num_materials, materials );
 	}else{

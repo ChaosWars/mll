@@ -20,7 +20,7 @@ namespace mll{
 			OBJMaterialLoader();
 
 			/**
-			 * Desroy the OBJMaterialLoader.
+			 * Destroy the OBJMaterialLoader.
 			 */
 			~OBJMaterialLoader();
 
@@ -38,7 +38,7 @@ namespace mll{
 			 * @returns
 			 *		The number of Materials read.
 			 */
-			int LoadMaterials( const char *material_file, Material **materials );
+			int LoadMaterials( const char material_file[], Material *materials[] );
 	};
 
 }

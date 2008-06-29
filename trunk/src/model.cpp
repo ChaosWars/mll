@@ -3,13 +3,13 @@
 
 using namespace mll;
 
-Model::Model( char *name,
-		float *vertices,
-		float *tex_coords,
-		float *normals,
+Model::Model( char name[],
+		float vertices[],
+		float tex_coords[],
+		float normals[],
 		int num_vertices,
 		int num_materials,
-		Material **materials )
+		Material *materials[] )
 {
 	if( name != NULL )
 		this->name = name;
@@ -43,7 +43,7 @@ Model::Model( char *name,
 Model::~Model()
 {
 	if( name != NULL )
-		delete name;
+		delete[] name;
 
 	if( vertices != NULL )
 		delete[] vertices;
@@ -52,7 +52,7 @@ Model::~Model()
 		delete[] tex_coords;
 
 	if( normals != NULL )
-		delete[] name;
+		delete[] normals;
 
 	if( materials != NULL ){
 		for(int i = 0; i < num_materials; i++){

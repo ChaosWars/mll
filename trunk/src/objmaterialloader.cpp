@@ -1,9 +1,11 @@
 #include <IL/ilut.h>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include "objmaterialloader.h"
 
 using namespace mll;
+using namespace std;
 
 OBJMaterialLoader::OBJMaterialLoader()
 {
@@ -13,7 +15,7 @@ OBJMaterialLoader::~OBJMaterialLoader()
 {
 }
 
-int OBJMaterialLoader::LoadMaterials( const char *material_file, Material **materials )
+int OBJMaterialLoader::LoadMaterials( const char material_file[], Material *materials[] )
 {
 	std::ifstream file;
 	std::string buffer;
@@ -36,7 +38,9 @@ int OBJMaterialLoader::LoadMaterials( const char *material_file, Material **mate
 	}
 
 	printf( "%d materials in material file.\n", num_materials );
+	cout << "Initial adress of materials inside LoadMaterials is " << &materials << "(should still be 0)" << endl;
 	materials = new Material *[num_materials];
+	cout << "Adress of materials after materials = new Material*[" << num_materials << "] is " << &materials << endl;
 
 	//Rewind file pointer in preperation for the second pass.
 	file.clear();
@@ -131,7 +135,9 @@ int OBJMaterialLoader::LoadMaterials( const char *material_file, Material **mate
 			getline( file, buffer );
 		}
 
+		cout << "Adress of materials[" << cur_material << "] before allocation is " << &materials[cur_material] << endl;
 		materials[cur_material] = new Material( name, const_cast< char* >( diffuse_map ) );
+		cout <<  "Adress of materials[" << cur_material << "] after allocation is " << materials[cur_material] << endl;
 		materials[cur_material]->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
 		materials[cur_material]->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
 
@@ -143,6 +149,11 @@ int OBJMaterialLoader::LoadMaterials( const char *material_file, Material **mate
 		materials[cur_material]->SetAlpha( alpha );
 		materials[cur_material]->SetShininess( shininess );
 
+		if( name != NULL ){
+			delete name;
+			name = NULL;
+		}
+		
 		if( diffuse_map != NULL ){
 			delete diffuse_map;
 			diffuse_map = NULL;
@@ -161,7 +172,7 @@ int OBJMaterialLoader::LoadMaterials( const char *material_file, Material **mate
 		alpha = 1.0;
 		specular = 1;
 		has_specular = false;
-		++cur_material;
+		cur_material++;
 	}
 
 	file.close();
