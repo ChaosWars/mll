@@ -381,12 +381,13 @@ Model* OBJLoader::CreateModel( const char *name,
 	if( &material_file != NULL ){
 		printf( "Reading materials.\n" );
 		OBJMaterialLoader *ml = new OBJMaterialLoader();
-		Material **materials = ml->LoadMaterials( material_file );
+		Material **materials = NULL;
+		int num_materials = ml->LoadMaterials( material_file, materials );
 		printf( "Creating model.\n" );
-		model = new Model( _name, _vertices, _tex_coords, _normals, materials );
+		model = new Model( _name, _vertices, _tex_coords, _normals, num_vertices, num_materials, materials );
 	}else{
 		printf( "Creating model.\n" );
-		model = new Model(  _name, _vertices, _tex_coords, _normals );
+		model = new Model(  _name, _vertices, _tex_coords, _normals, num_vertices );
 	}
 
 	return model;

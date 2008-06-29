@@ -25,6 +25,8 @@ namespace mll{
 			       float *vertices = NULL,
 			       float *tex_coords = NULL,
 			       float *normals = NULL,
+				   int num_vertices = 0,
+				   int num_materials = 0,
 			       Material **material = NULL );
 
 			/**
