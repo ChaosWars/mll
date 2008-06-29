@@ -21,7 +21,7 @@ namespace mll{
 			* assigned to pointers maintained by the class and MUST NOT be
 			* deleted by you! The class will delete them when it is destroyed.
 			*/
-			Model( char *name,
+			Model( char *name = NULL,
 			       float *vertices = NULL,
 			       float *tex_coords = NULL,
 			       float *normals = NULL,

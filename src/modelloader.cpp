@@ -12,6 +12,7 @@ ModelLoader::~ModelLoader()
 
 Model* ModelLoader::LoadModel( const char *model_file )
 {
+	return new Model();
 }
 
 Model* ModelLoader::CreateModel( const std::string &name,
@@ -24,4 +25,5 @@ Model* ModelLoader::CreateModel( const std::string &name,
 				const int *normal_idx,
 				const std::string &material_file )
 {
+	return new Model();
 }
