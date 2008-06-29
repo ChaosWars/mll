@@ -317,14 +317,29 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 	printf( "Created model.\n" );
 
-	delete name ;
-	delete material_file;
-	delete[] vertices;
-	delete[] tex_coords;
-	delete[] normals;
-	delete[] vertex_indices;
-	delete[] tex_coord_indices;
-	delete[] normal_indices;
+	if( name != NULL )
+		delete[] name ;
+
+	if( material_file != NULL )
+		delete[] material_file;
+	
+	if( vertices != NULL )
+		delete[] vertices;
+	
+	if( tex_coords != NULL )
+		delete[] tex_coords;
+
+	if( normals != NULL )
+		delete[] normals;
+
+	if( vertex_indices != NULL )
+		delete[] vertex_indices;
+
+	if( tex_coord_indices != NULL )
+		delete[] tex_coord_indices;
+
+	if( normal_indices != NULL )
+		delete[] normal_indices;
 
 	return model;
 }
