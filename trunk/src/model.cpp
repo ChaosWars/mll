@@ -7,6 +7,8 @@ Model::Model( char *name,
 		float *vertices,
 		float *tex_coords,
 		float *normals,
+		int num_vertices,
+		int num_materials,
 		Material **materials )
 {
 	if( name != NULL )
@@ -29,6 +31,9 @@ Model::Model( char *name,
 	else
 		this->normals = NULL;
 
+	num_texture_coords = num_normals = this->num_vertices = num_vertices;
+	this->num_materials = num_materials;
+
 	if( materials != NULL )
 		this->materials = materials;
 	else
@@ -41,16 +46,21 @@ Model::~Model()
 		delete name;
 
 	if( vertices != NULL )
-		delete vertices;
+		delete[] vertices;
 
 	if( tex_coords != NULL )
-		delete tex_coords;
+		delete[] tex_coords;
 
 	if( normals != NULL )
-		delete name;
+		delete[] name;
 
-	if( materials != NULL )
-		delete materials;
+	if( materials != NULL ){
+		for(int i = 0; i < num_materials; i++){
+			delete materials[i];
+		}
+
+		delete[] materials;
+	}
 }
 
 const char* Model::Name()

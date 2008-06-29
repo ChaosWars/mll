@@ -31,10 +31,15 @@ namespace mll{
 			* @param material_file
 			*		The file to be loaded from disk.
 			*
+			* @param materials
+			*		The array to store the materials in. This is an array of pointers
+			*		to objects of the type Material. This variable will be dynamically allocated,
+			*		therefor it should not point to anything valid when passed to this function.
+			*
 			* @returns
-			*		The reference to the new Material object.
+			*		The number of Materials read.
 			*/
-			virtual Material** LoadMaterials( const char *material_file );
+			virtual int LoadMaterials( const char *material_file, Material **materials );
 	};
 }
 

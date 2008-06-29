@@ -13,17 +13,16 @@ OBJMaterialLoader::~OBJMaterialLoader()
 {
 }
 
-Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
+int OBJMaterialLoader::LoadMaterials( const char *material_file, Material **materials )
 {
 	std::ifstream file;
 	std::string buffer;
-	Material **materials = NULL;
 
 	file.open( material_file, std::ifstream::in );
 
 	if ( !file.is_open() ){
 		printf( "Failed to open material file.\n" );
-		return materials;
+		return 0;
 	}
 
 	//First pass established the number of materials
@@ -58,7 +57,6 @@ Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 	float alpha = 1.0;
 	int specular = 1;
 	bool has_specular = false;
-	int material_idx = 0;
 	int cur_material = 0;
 
 	//Second pass reads the material properties
@@ -163,11 +161,9 @@ Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 		alpha = 1.0;
 		specular = 1;
 		has_specular = false;
-		
-		++material_idx;
 		++cur_material;
 	}
 
 	file.close();
-	return materials;
+	return num_materials;
 }

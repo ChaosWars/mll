@@ -11,8 +11,7 @@ MaterialLoader::~MaterialLoader()
 {
 }
 
-Material** MaterialLoader::LoadMaterials( const char *material_file )
+int MaterialLoader::LoadMaterials( const char *material_file, Material **materials )
 {
-	Material **material = new Material *[0];
-	return material;
+	return 0;
 }
