@@ -23,7 +23,7 @@ Model* OBJLoader::LoadModel( const char *objfile )
 
 	if ( !file.is_open() ){
 		printf( "Failed to open model file.\n" );
-		return model;
+		return new Model();
 	}
 	
 	/*	We loop through the file twice.
