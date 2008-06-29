@@ -43,8 +43,8 @@ Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 	file.clear();
 	file.seekg( std::ifstream::beg );
 
-	std::string *name = NULL;
-	std::string *diffuse_map = NULL;
+	char *name = NULL;
+	char *diffuse_map = NULL;
 	float ambient_red = 0.0;
 	float ambient_green = 0.0;
 	float ambient_blue = 0.0;
@@ -69,10 +69,8 @@ Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 			getline( file, buffer );
 		}
 
-		name = new std::string( buffer, 7, buffer.length() - 7 );
-		sscanf( buffer.c_str(),
-				"newmtl %s",
-				name );
+		name = new char[buffer.length() - 7];
+		sscanf( buffer.c_str(), "newmtl %s", name );
 
 		printf( "name : %s\n", name );
 		getline( file, buffer );
@@ -81,17 +79,13 @@ Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 
 			if( buffer.substr( 0, 6 ) == "map_Kd" ){
 
-				diffuse_map = new std::string( buffer, 7, buffer.length() - 7 );
-				sscanf( buffer.c_str(),
-						"map_Kd %s",
-						diffuse_map );
-				printf( "diffuse_map : %s\n", diffuse_map->c_str() );
+				diffuse_map = new char[buffer.length() - 7];
+				sscanf( buffer.c_str(), "map_Kd %s", diffuse_map );
+				printf( "diffuse_map : %s\n", diffuse_map );
 
 			}else if( buffer.substr( 0, 4 ) == "illum" ){
 
-				sscanf( buffer.c_str(),
-						"illum %d",
-						specular );
+				sscanf( buffer.c_str(), "illum %d", &specular );
 
 				if( specular == 2 )
 					has_specular = true;
@@ -100,50 +94,46 @@ Material** OBJMaterialLoader::LoadMaterials( const char *material_file )
 
 				sscanf( buffer.c_str(),
 						"Ka %f %f %f",
-						ambient_red,
-						ambient_blue,
-						ambient_green );
+						&ambient_red,
+						&ambient_blue,
+						&ambient_green );
 				
 			}else if( buffer.substr( 0, 2 ) == "Kd" ){
 
 				sscanf( buffer.c_str(),
 						"Kd %f %f %f",
-						diffuse_red,
-						diffuse_blue,
-						diffuse_green );
+						&diffuse_red,
+						&diffuse_blue,
+						&diffuse_green );
 				
 			}else if( buffer.substr( 0, 2 ) == "Ks" ){
 
 				sscanf( buffer.c_str(),
 						"Ks %f %f %f",
-						specular_red,
-						specular_blue,
-						specular_green );
+						&specular_red,
+						&specular_blue,
+						&specular_green );
 
 			}else if( buffer.substr( 0, 2 ) == "Ns" ){
 
 				sscanf( buffer.c_str(),
 						"Ns %f",
-						shininess );
+						&shininess );
 
 			}else if( buffer.substr( 0, 2 ) == "Tr" ){
 
-				sscanf( buffer.c_str(),
-						"Tr %f",
-						alpha );
+				sscanf( buffer.c_str(), "Tr %f", &alpha );
 
 			}else if( buffer.substr( 0, 1 ) == "d" ){
 
-				sscanf( buffer.c_str(),
-						"d %f",
-						alpha );
+				sscanf( buffer.c_str(), "d %f", &alpha );
 
 			}
 
 			getline( file, buffer );
 		}
 
-		materials[cur_material] = new Material( *name, const_cast< char* >( diffuse_map->c_str() ) );
+		materials[cur_material] = new Material( name, const_cast< char* >( diffuse_map ) );
 		materials[cur_material]->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
 		materials[cur_material]->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
 

@@ -2,14 +2,16 @@
 
 using namespace mll;
 
-Material::Material( const std::string &name, char *diffuse_file,
+Material::Material( char *name, char *diffuse_file,
 	 				char *normal_file, char *specular_file ) :
 					_has_specular( false )
 {
-	if( &name != NULL )
-		this->name = new std::string( name );
-	else
-		this->name = NULL;
+	if( name != NULL ){
+		_name = new char[strlen(name)];
+		strcpy(_name, name);
+	}else{
+		_name = NULL;
+	}
 
 	if( diffuse_file != NULL ){
 		ilGenImages( 1, &diffuse_tex );
@@ -39,8 +41,8 @@ Material::Material( const std::string &name, char *diffuse_file,
 
 Material::~Material()
 {
-	if( name != NULL )
-		delete name;
+	if( _name != NULL )
+		delete _name;
 
 	if( diffuse_tex != 0 )
 		ilDeleteImages( 1, &diffuse_tex );
@@ -52,10 +54,10 @@ Material::~Material()
 		ilDeleteImages( 1, &specular_tex );
 }
 
-const std::string* Material::Name()
+const char* Material::Name()
 {
-	if( name != NULL )
-		return name;
+	if( _name != NULL )
+		return _name;
 	else
 		return NULL;
 }
@@ -114,14 +116,15 @@ bool Material::HasSpecular()
 	return _has_specular;
 }
 
-void Material::SetName( const std::string &name )
+void Material::SetName( const char *name )
 {
-	if( this->name != NULL ){
-		delete this->name;
-		this->name = NULL;
+	if( _name != NULL ){
+		delete _name;
+		_name = NULL;
 	}
 
-	this->name = new std::string( name );
+	_name = new char[strlen(name)];
+	strcpy(_name, name);
 }
 
 void Material::SetDiffuseTexture( char *diffuse_file )
