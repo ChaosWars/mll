@@ -9,4 +9,3 @@ ModelLoader::ModelLoader()
 ModelLoader::~ModelLoader()
 {
 }
-

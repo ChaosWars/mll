@@ -5,6 +5,8 @@
 #include <vector>
 #include "material.h"
 
+using namespace std;
+
 namespace mll{
 
 	/**
@@ -17,28 +19,33 @@ namespace mll{
 		public:
 
 			/**
-			* Creates a Model. The arguments in the constructor are
-			* assigned to pointers maintained by the class and MUST NOT be
-			* deleted by you! The class will delete them when it is destroyed.
-			*/
-			Model( char name[] = NULL,
-			       float vertices[] = NULL,
-			       float tex_coords[] = NULL,
-			       float normals[] = NULL,
-				   int num_vertices = 0,
-				   int num_materials = 0,
-			       Material *material[] = NULL );
+			 * Creates a Model.
+			 *
+			 * @param name
+			 *		The name of the model.
+			 *
+			 * @param quad
+			 *		True if the model is quadrangulate, false if the model is triangulated
+			 */
+			Model( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
+					const vector<float> &normals, const vector<Material*> &materials );
 
 			/**
-			* Destroys the Model
-			*/
+			 * Destroys the Model
+			 */
 			~Model();
 
 			/**
-			* @returns
-			*		The name of the model.
-			*/
-			const char* Name();
+			 * @returns
+			 *		The name of the model.
+			 */
+			const string& Name() const;
+
+			/**
+			 * @returns
+			 *		True if the model is quadrangulate, false if the model is triangulated
+			 */
+			bool Quad();
 
 			/**
 			 * @returns
@@ -62,37 +69,34 @@ namespace mll{
 			* @returns
 			*		The normal data for the model.
 			*/
-			const float* Normals();
+			const vector<float>* Normals();
 			
 			/**
 			* @returns
 			*		The texture coordinate data for the model.
 			*/
-			const float* TextureCoords();
+			const vector<float>* TextureCoords();
 			
 			/**
 			* @returns
 			*		The vertex data for the model.
 			*/
-			const float* Vertices();
+			const vector<float>* Vertices();
 
 			/**
 			* @returns
 			*		An array of Material containing the materials
 			*		used by the model.
 			*/
-			Material** Materials();
+			const vector<Material*>* Materials();
 
 		private:
-			char *name;
-			int num_normals;
-			int num_texture_coords;
-			int num_vertices;
-			int num_materials;
-			float *normals;
-			float *tex_coords;
-			float *vertices;
-			Material **materials;
+			bool q;
+			string n;
+			vector<float> vn;
+			vector<float> tc;
+			vector<float> v;
+			vector<Material*> m;
 	};
 
 }
