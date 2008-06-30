@@ -28,7 +28,7 @@ Model* OBJLoader::LoadModel( const string &objfile )
 	}
 
 	string name, material_file;
-	bool quad;
+	bool quad = false;
 
 	/* Temporary data variables */
 	int vi1, vi2, vi3, vi4;
@@ -91,6 +91,7 @@ Model* OBJLoader::LoadModel( const string &objfile )
 			    vertex_idx.push_back(--vi2);
 				vertex_idx.push_back(--vi3);
 			}else if( read == 4 ){ /* The model is quadrangulated */
+				quad = true;
 				vertex_idx.push_back(--vi1);
 			    vertex_idx.push_back(--vi2);
 				vertex_idx.push_back(--vi3);
@@ -111,6 +112,7 @@ Model* OBJLoader::LoadModel( const string &objfile )
 					vertex_idx.push_back(--vi3);
 					normal_idx.push_back(--ni3);
 				}else if( read == 8 ){
+					quad = true;
 					vertex_idx.push_back(--vi1);
 					normal_idx.push_back(--ni1);
     				vertex_idx.push_back(--vi2);
@@ -134,6 +136,7 @@ Model* OBJLoader::LoadModel( const string &objfile )
 					vertex_idx.push_back(--vi3);
 					tex_coord_idx.push_back(--ti3);
 				}else if( read == 8 ){
+					quad = true;
 					vertex_idx.push_back(--vi1);
 					tex_coord_idx.push_back(--ti1);
 					vertex_idx.push_back(--vi2);
@@ -160,6 +163,7 @@ Model* OBJLoader::LoadModel( const string &objfile )
 					tex_coord_idx.push_back(--ti3);
 					normal_idx.push_back(--ni3);
 				}else if( read == 12 ){
+					quad = true;
 					vertex_idx.push_back(--vi1);
 					tex_coord_idx.push_back(--ti1);
 					normal_idx.push_back(--ni1);
@@ -196,40 +200,40 @@ Model* OBJLoader::LoadModel( const string &objfile )
 
 	file.close();
 
-	return CreateModel( name, quad, vertices, tex_coords, normals, vertex_idx,
-						tex_coord_idx, normal_idx, material_file );
+	return CreateModel( name, quad, normals, tex_coords, vertices,
+						normal_idx, tex_coord_idx, vertex_idx, material_file );
 }
 
-Model* OBJLoader::CreateModel( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
-							   const vector<float> &normals, const vector<int> &vertex_idx, const vector<int> &tex_coord_idx,
-							   const vector<int> &normal_idx, const string &material_file )
+Model* OBJLoader::CreateModel( const string &name, bool quad, const vector<float> &normals, const vector<float> &tex_coords,
+							   const vector<float> &vertices, const vector<int> &normal_idx, const vector<int> &tex_coord_idx,
+							   const vector<int> &vertex_idx, const string &material_file )
 {
 	/*Here we fill the vertex, texture and normal arrays.
 	  We use the index array to calculate the polygons, since we
 	  want to return the arrays to be used in a non-indexed way */
 	vector<float> n;
-	vector<float> v;
 	vector<float> tc;
+	vector<float> v;
 	vector<Material*> m;
 
 	/* Simple optimization resulting in N complexity, since this will generally be the case */
 	if( normals.size() == vertices.size() && normals.size() == tex_coords.size() && vertices.size() == tex_coords.size() ){
 		for( int i = 0; i < normals.size(); ++i ){
 			n.push_back( normals.at( normal_idx.at(i) ) );
-			v.push_back( vertices.at( vertex_idx.at(i) ) );
 			tc.push_back( tex_coords.at( tex_coord_idx.at(i) ) );
+			v.push_back( vertices.at( vertex_idx.at(i) ) );
 		}
 	}else{ /* Otherwise we have to do this with complexity N^3*/
 		for( int i = 0; i < normals.size(); ++i ){
 			n.push_back( normals.at( normal_idx.at(i) ) );
 		}
 
-		for( int i = 0; i < vertices.size(); ++i ){
-			v.push_back( vertices.at( vertex_idx.at(i) ) );
-		}
-
 		for( int i = 0; i < tex_coords.size(); ++i ){
 			tc.push_back( tex_coords.at( tex_coord_idx.at(i) ) );
+		}
+
+		for( int i = 0; i < vertices.size(); ++i ){
+			v.push_back( vertices.at( vertex_idx.at(i) ) );
 		}
 	}
 
@@ -243,5 +247,5 @@ Model* OBJLoader::CreateModel( const string &name, bool quad, const vector<float
 		}	
 	}
 
-	return new Model( name, quad, n, v, tc, m );
+	return new Model( name, quad, n, tc, v, m );
 }

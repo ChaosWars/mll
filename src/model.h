@@ -27,8 +27,8 @@ namespace mll{
 			 * @param quad
 			 *		True if the model is quadrangulate, false if the model is triangulated
 			 */
-			Model( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
-					const vector<float> &normals, const vector<Material*> &materials );
+			Model( const string &name, bool quad, const vector<float> &normals, const vector<float> &tex_coords,
+					const vector<float> &vertices, const vector<Material*> &materials );
 
 			/**
 			 * Destroys the Model
@@ -69,26 +69,26 @@ namespace mll{
 			* @returns
 			*		The normal data for the model.
 			*/
-			const vector<float>* Normals();
+			vector<float>* Normals();
 			
 			/**
 			* @returns
 			*		The texture coordinate data for the model.
 			*/
-			const vector<float>* TextureCoords();
+			vector<float>* TextureCoords();
 			
 			/**
 			* @returns
 			*		The vertex data for the model.
 			*/
-			const vector<float>* Vertices();
+			vector<float>* Vertices();
 
 			/**
 			* @returns
 			*		An array of Material containing the materials
 			*		used by the model.
 			*/
-			const vector<Material*>* Materials();
+			vector<Material*>* Materials();
 
 		private:
 			bool q;

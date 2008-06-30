@@ -3,9 +3,9 @@
 
 using namespace mll;
 
-Model::Model( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
-			 const vector<float> &normals, const vector<Material*> &materials )
-: n(name), v(vertices), tc(tex_coords), vn(normals), m(materials)
+Model::Model( const string &name, bool quad, const vector<float> &normals, const vector<float> &tex_coords,
+					const vector<float> &vertices, const vector<Material*> &materials )
+: n(name), vn(normals), tc(tex_coords), v(vertices), m(materials)
 {
 }
 
@@ -38,22 +38,22 @@ int Model::NumVertices()
 	return v.size();
 }
 
-const vector<float>* Model::Vertices()
+vector<float>* Model::Vertices()
 {
-	return const_cast< vector<float>* >( &v );
+	return &v;
 }
 
-const vector<float>* Model::TextureCoords()
+vector<float>* Model::TextureCoords()
 {
-	return const_cast< vector<float>* >( &tc );
+	return &tc;
 }
 
-const vector<float>* Model::Normals()
+vector<float>* Model::Normals()
 {
-	return const_cast< vector<float>* >( &vn );
+	return &vn;
 }
 
-const vector<Material*>* Model::Materials()
+vector<Material*>* Model::Materials()
 {
-	return const_cast< vector<Material*>* >( &m );
+	return &m;
 }
