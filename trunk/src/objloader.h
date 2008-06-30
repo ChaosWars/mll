@@ -81,9 +81,9 @@ namespace mll{
 			* @returns
 			*		A pointer to the data contained in the model.
 			*/
-			Model* CreateModel( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
-								const vector<float> &normals, const vector<int> &vertex_idx, const vector<int> &tex_coord_idx,
-								const vector<int> &normal_idx, const string &material_file );
+			Model* CreateModel( const string &name, bool quad, const vector<float> &normals, const vector<float> &tex_coords,
+								const vector<float> &vertices, const vector<int> &normal_idx, const vector<int> &tex_coord_idx,
+								const vector<int> &vertex_idx, const string &material_file );
 
 	};
 

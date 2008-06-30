@@ -7,29 +7,47 @@ using namespace mll;
 
 void PrintModelGeometryInfo( Model &model )
 {
-	cout << "Name: " << model.Name();
-	int nn = cmodel.Normals()->size();
-	int nt = model.TextureCoords()->size();
-	int nv = model.Vertices()->size();
+	cout << "Geometry:" << endl;
+	int nn = model.NumNormals();
+	int nt = model.NumTextureCoords();
+	int nv = model.NumVertices();
 	cout << "Number of normals: " << nn << endl;
 	cout << "Number of textures: " << nt << endl;
 	cout << "Number of vertices: " << nv << endl << endl;
-	cout << "Geometry:" << endl;
 
 	vector<float> *normals = model.Normals();
-	vector<float> *vertices = model.Vertices();
 	vector<float> *tex_coords = model.TextureCoords();
+	vector<float> *vertices = model.Vertices();
 	
-	if( nn == nt && nn == nv && nt == nv ){
-		for(int i = 0; i < nn; i++){
-			count << "v: " << normals->at(i);
+	try{
+		if( nn == nt && nn == nv && nt == nv ){
+			for(int i = 0; i < nn; i += 3){
+				cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << endl;
+				cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << endl;
+				cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << endl;
+			}
+		}else{
+			for(int i = 0; i < nn; i += 3){
+				cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << endl;
+			}
+
+			for(int i = 0; i < nt; i+= 3){
+				cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << endl;
+			}
+
+			for(int i = 0; i < nv; i += 3){
+				cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << endl;
+			}
 
 		}
+	}catch(out_of_range &e){
+		cout << e.what() << endl;
 	}
 }
 
 void PrintModelMaterialInfo( const Model &model )
 {
+	cout << "Materials:" << endl;
 }
 
 int main(int argc, char **argv)
@@ -43,10 +61,10 @@ int main(int argc, char **argv)
 
 	try{
 		Model *model = objloader->LoadModel( argv[1] );
-		cout << "Model loaded succesfully." << endl;
-		cout << "Model geometry information:" << endl;
+		cout << "Model information:" << endl;
+		cout << "Name: " << model->Name() << endl << endl;
 		PrintModelGeometryInfo( *model );
-		cout << "Model material information:" << endl;
+		cout << endl;
 		PrintModelMaterialInfo( *model );
 		delete model;
 		return EXIT_SUCCESS;
