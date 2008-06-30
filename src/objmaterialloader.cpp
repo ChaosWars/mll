@@ -1,11 +1,11 @@
-#include <IL/ilut.h>
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
+#include <IL/ilut.h>
+#include "exception.h"
 #include "objmaterialloader.h"
 
 using namespace mll;
-using namespace std;
 
 OBJMaterialLoader::OBJMaterialLoader()
 {
@@ -15,39 +15,18 @@ OBJMaterialLoader::~OBJMaterialLoader()
 {
 }
 
-int OBJMaterialLoader::LoadMaterials( const char *&material_file, Material **&materials )
+void OBJMaterialLoader::LoadMaterials( const string &material_file, vector<Material*> &materials )
 {
-	std::ifstream file;
-	std::string buffer;
+	ifstream file;
+	string buffer;
 
-	file.open( material_file, std::ifstream::in );
+	file.open( material_file.c_str(), ifstream::in );
 
 	if ( !file.is_open() ){
-		printf( "Failed to open material file.\n" );
-		return 0;
+		throw FileOpenException(material_file);
 	}
 
-	//First pass established the number of materials
-	int num_materials = 0;
-
-	while( !file.eof() ){
-		getline( file, buffer );
-
-		if( buffer.substr( 0, 6 ) == "newmtl" )
-			++num_materials;
-	}
-
-	printf( "%d materials in material file.\n", num_materials );
-	cout << "Initial adress of materials inside LoadMaterials is " << materials << "(should still be 0)" << endl;
-	materials = new Material *[num_materials];
-	cout << "Adress of materials after materials = new Material*[" << num_materials << "] is " << materials << endl;
-
-	//Rewind file pointer in preperation for the second pass.
-	file.clear();
-	file.seekg( std::ifstream::beg );
-
-	char *name = NULL;
-	char *diffuse_map = NULL;
+	string name, diffuse_map, normal_map, specular_map;
 	float ambient_red = 0.0;
 	float ambient_green = 0.0;
 	float ambient_blue = 0.0;
@@ -61,9 +40,7 @@ int OBJMaterialLoader::LoadMaterials( const char *&material_file, Material **&ma
 	float alpha = 1.0;
 	int specular = 1;
 	bool has_specular = false;
-	int cur_material = 0;
 
-	//Second pass reads the material properties
 	while( !file.eof() ){
 		getline( file, buffer );
 
@@ -71,20 +48,21 @@ int OBJMaterialLoader::LoadMaterials( const char *&material_file, Material **&ma
 			getline( file, buffer );
 		}
 
-		name = new char[buffer.length() - 6];
-		sscanf( buffer.c_str(), "newmtl %s", name );
-
-		printf( "name : %s\n", name );
+		int len = buffer.length() - 6;
+		char *n = new char[len];
+		sscanf( buffer.c_str(), "newmtl %s", n );
+		n[len] = '\0';
+		name = n;
 		getline( file, buffer );
 
 		while( buffer.substr( 0, 6 ) != "newmtl" && !file.eof() ){
 
 			if( buffer.substr( 0, 6 ) == "map_Kd" ){
-
-				diffuse_map = new char[buffer.length() - 6];
-				sscanf( buffer.c_str(), "map_Kd %s", diffuse_map );
-				printf( "diffuse_map : %s\n", diffuse_map );
-
+				int len = buffer.length() - 6;
+				char *d = new char[len];
+				sscanf( buffer.c_str(), "map_Kd %s", d );
+				d[len] = '\0';
+				diffuse_map = d;
 			}else if( buffer.substr( 0, 4 ) == "illum" ){
 
 				sscanf( buffer.c_str(), "illum %d", &specular );
@@ -135,30 +113,22 @@ int OBJMaterialLoader::LoadMaterials( const char *&material_file, Material **&ma
 			getline( file, buffer );
 		}
 
-		cout << "Adress of materials[" << cur_material << "] before allocation is " << materials[cur_material] << endl;
-		materials[cur_material] = new Material( name, const_cast< char* >( diffuse_map ) );
-		cout <<  "Adress of materials[" << cur_material << "] after allocation is " << materials[cur_material] << endl;
-		materials[cur_material]->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
-		materials[cur_material]->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
+		materials.push_back( new Material( name, diffuse_map, normal_map, specular_map ) );
+		materials.back()->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
+		materials.back()->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
 
 		if( has_specular ){
-			materials[cur_material]->SetHasSpecular( true );
-			materials[cur_material]->SetSpecularColor( specular_red, specular_green, specular_blue );
+			materials.back()->SetHasSpecular( true );
+			materials.back()->SetSpecularColor( specular_red, specular_green, specular_blue );
 		}
 
-		materials[cur_material]->SetAlpha( alpha );
-		materials[cur_material]->SetShininess( shininess );
+		materials.back()->SetAlpha( alpha );
+		materials.back()->SetShininess( shininess );
 
-		if( name != NULL ){
-			delete name;
-			name = NULL;
-		}
-		
-		if( diffuse_map != NULL ){
-			delete diffuse_map;
-			diffuse_map = NULL;
-		}
-
+		name.clear();
+		diffuse_map.clear();
+		normal_map.clear();
+		specular_map.clear();
 		ambient_red = 0.0;
 		ambient_green = 0.0;
 		ambient_blue = 0.0;
@@ -172,9 +142,7 @@ int OBJMaterialLoader::LoadMaterials( const char *&material_file, Material **&ma
 		alpha = 1.0;
 		specular = 1;
 		has_specular = false;
-		cur_material++;
 	}
 
 	file.close();
-	return num_materials;
 }

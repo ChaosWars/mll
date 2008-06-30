@@ -6,6 +6,8 @@
 #include "modelloader.h"
 #include "model.h"
 
+using namespace std;
+
 namespace mll{
 
 	/**
@@ -36,7 +38,7 @@ namespace mll{
 			*	@returns
 			*		The model data.
 			*/
-			Model* LoadModel( const char *objfile );
+			Model* LoadModel( const string &objfile );
 
 		protected:
 
@@ -47,6 +49,9 @@ namespace mll{
 			*
 			* @param name
 			*		The name of the model.
+			*
+			* @param quad
+			*		True if the model is quadrangulate, false if the model is triangulated
 			*
 			* @param vertices
 			*		Indexed array containing the vertex data of the model.
@@ -76,15 +81,9 @@ namespace mll{
 			* @returns
 			*		A pointer to the data contained in the model.
 			*/
-			Model* CreateModel( const char *name = NULL,
-						const float *vertices = NULL,
-						const float *tex_coords = NULL,
-						const float *normals = NULL,
-						const int num_vertices = NULL,
-						const int *vertex_idx = NULL,
-						const int *tex_coord_idx = NULL,
-						const int *normal_idx = NULL,
-						const char *material_file = NULL );
+			Model* CreateModel( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
+								const vector<float> &normals, const vector<int> &vertex_idx, const vector<int> &tex_coord_idx,
+								const vector<int> &normal_idx, const string &material_file );
 
 	};
 

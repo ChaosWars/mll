@@ -3,100 +3,57 @@
 
 using namespace mll;
 
-Model::Model( char name[],
-		float vertices[],
-		float tex_coords[],
-		float normals[],
-		int num_vertices,
-		int num_materials,
-		Material *materials[] )
+Model::Model( const string &name, bool quad, const vector<float> &vertices, const vector<float> &tex_coords,
+			 const vector<float> &normals, const vector<Material*> &materials )
+: n(name), v(vertices), tc(tex_coords), vn(normals), m(materials)
 {
-	if( name != NULL )
-		this->name = name;
-	else
-		this->name = NULL;
-
-	if( vertices != NULL )
-		this->vertices = vertices;
-	else
-		this->vertices = NULL;
-
-	if( tex_coords != NULL )
-		this->tex_coords = tex_coords;
-	else
-		this->tex_coords = NULL;
-
-	if( normals != NULL )
-		this->normals = normals;
-	else
-		this->normals = NULL;
-
-	num_texture_coords = num_normals = this->num_vertices = num_vertices;
-	this->num_materials = num_materials;
-
-	if( materials != NULL )
-		this->materials = materials;
-	else
-		this->materials = NULL;
 }
 
 Model::~Model()
 {
-	if( name != NULL )
-		delete[] name;
-
-	if( vertices != NULL )
-		delete[] vertices;
-
-	if( tex_coords != NULL )
-		delete[] tex_coords;
-
-	if( normals != NULL )
-		delete[] normals;
-
-	if( materials != NULL ){
-		for(int i = 0; i < num_materials; i++){
-			delete materials[i];
-		}
-
-		delete[] materials;
-	}
 }
 
-const char* Model::Name()
+const string& Model::Name() const
 {
-	if( name != NULL )
-		return const_cast< char* >( name );
-	else
-		return NULL;
+	return n;
 }
 
-const float* Model::Vertices()
+bool Model::Quad()
 {
-	if( vertices != NULL )
-		return const_cast< float* >( vertices );
-	else
-		return NULL;
+	return q;
 }
 
-const float* Model::TextureCoords()
+int Model::NumNormals()
 {
-	if( tex_coords != NULL)
-		return const_cast< float* >( tex_coords );
-	else
-		return NULL;
+	return vn.size();
 }
 
-const float* Model::Normals()
+int Model::NumTextureCoords()
 {
-	if( normals != NULL )
-		return const_cast< float* >( normals );
-	else
-		return NULL;
+	return tc.size();
 }
 
-Material** Model::Materials()
+int Model::NumVertices()
 {
-	return materials;
+	return v.size();
 }
 
+const vector<float>* Model::Vertices()
+{
+	return const_cast< vector<float>* >( &v );
+}
+
+const vector<float>* Model::TextureCoords()
+{
+	return const_cast< vector<float>* >( &tc );
+}
+
+const vector<float>* Model::Normals()
+{
+	return const_cast< vector<float>* >( &vn );
+}
+
+const vector<Material*>* Model::Materials()
+{
+	return const_cast< vector<Material*>* >( &m );
+}

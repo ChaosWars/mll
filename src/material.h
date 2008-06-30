@@ -5,6 +5,9 @@
 #include <string>
 #include <boost/array.hpp>
 
+using namespace std;
+using namespace boost;
+
 namespace mll{
 
 	/**
@@ -29,10 +32,7 @@ namespace mll{
 			* @param specular_file
 			*		The path of specular map of the material.
 			*/
-			Material( char *name = NULL,
-				  char *diffuse_file = NULL,
-				  char *normal_file = NULL,
-				  char *specular_file = NULL );
+			Material( const string &name, const string &diffuse_file, const string &normal_file, const string &specular_file );
 
 			/**
 			* Destroy the material.
@@ -45,7 +45,7 @@ namespace mll{
 			* @return
 			*		The materials name.
 			*/
-			const char *Name();
+			const string Name() const;
 
 			/**
 			* Get the diffuse texture for the material.
@@ -77,7 +77,7 @@ namespace mll{
 			 * @returns
 			 *		An array containing the ambient color.
 			 */
-			const boost::array< float, 3 >* AmbientColor();
+			const array< float, 3 >* AmbientColor();
 
 			/**
 			 * Get the diffuse color for the material.
@@ -85,7 +85,7 @@ namespace mll{
 			 * @returns
 			 *		An array containing the diffuse color.
 			 */
-			const boost::array< float, 3 >* DiffuseColor();
+			const array< float, 3 >* DiffuseColor();
 
 			/**
 			 * Get the specular color for the material.
@@ -93,7 +93,7 @@ namespace mll{
 			 * @returns
 			 *		An array containing the specular color.
 			 */
-			const boost::array< float, 3 >* SpecularColor();
+			const array< float, 3 >* SpecularColor();
 
 			/**
 			 * Get the alpha value of the material.
@@ -101,7 +101,7 @@ namespace mll{
 			 * @returns
 			 *		The alpha value of the material.
 			 */
-			float Alpha();
+			const float Alpha() const;
 
 			/**
 			 * Get the shininess of the material.
@@ -109,7 +109,7 @@ namespace mll{
 			 * @returns
 			 *		The shininess value of the material.
 			 */
-			float Shininess();
+			const float Shininess() const;
 
 			/**
 			 * If the materials specular values and map should be used.
@@ -117,7 +117,7 @@ namespace mll{
 			 * @returns
 			 *		If the material has specular highlights.
 			 */
-			bool HasSpecular();
+			const bool HasSpecular() const;
 
 			/**
 			* Set the name for the material.
@@ -125,7 +125,7 @@ namespace mll{
 			* @param name
 			*		The new name for the material.
 			*/
-			void SetName( const char *name );
+			void SetName( const string &name );
 
 			/**
 			* Set the diffuse texture for the material.
@@ -133,7 +133,7 @@ namespace mll{
 			* @param diffuse_file
 			*		The location of the new diffuse texture for the material.
 			*/
-			void SetDiffuseTexture( char *diffuse_file );
+			void SetDiffuseTexture( const string &diffuse_file );
 
 			/**
 			* Set the normal texture for the material.
@@ -141,7 +141,7 @@ namespace mll{
 			* @param normal_file
 			*		The location of the new normal texture for the material.
 			*/
-			void SetNormalTexture( char *normal_file );
+			void SetNormalTexture( const string &normal_file );
 
 			/**
 			* Set the specular texure for the file.
@@ -149,7 +149,7 @@ namespace mll{
 			* @param specular_file
 			*		The location of the new specular texture for the material.
 			*/
-			void SetSpecularTexture( char *specular_file );
+			void SetSpecularTexture( const string &specular_file );
 
 			/**
 			 * Set the ambient color for the material.
@@ -218,7 +218,7 @@ namespace mll{
 			void SetHasSpecular( bool has_specular );
 
 		private:
-			char *_name;
+			string _name;
 			ILuint diffuse_tex;
 			ILuint normal_tex;
 			ILuint specular_tex;

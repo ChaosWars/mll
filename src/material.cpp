@@ -2,37 +2,28 @@
 
 using namespace mll;
 
-Material::Material( char *name, char *diffuse_file,
-	 				char *normal_file, char *specular_file ) :
+Material::Material( const string &name, const string &diffuse_map, const string &normal_map, const string &specular_map ) :
 					_has_specular( false )
 {
-	if( name != NULL ){
-		_name = new char[strlen(name)];
-		strcpy(_name, name);
-	}else{
-		_name = NULL;
-	}
+	_name = name;
 
-	if( diffuse_file != NULL ){
+	if( !diffuse_map.empty() ){
 		ilGenImages( 1, &diffuse_tex );
 		ilBindImage( diffuse_tex );
-		ilLoadImage( diffuse_file );
-	}else
-		this->diffuse_tex = NULL;
+		ilLoadImage( diffuse_map.c_str() );
+	}
 
-	if( normal_file != NULL ){
+	if( !normal_map.empty() ){
 		ilGenImages( 1, &normal_tex );
 		ilBindImage( normal_tex );
-		ilLoadImage( normal_file );
-	}else
-		this->normal_tex = NULL;
+		ilLoadImage( normal_map.c_str() );
+	}
 
-	if( specular_file != NULL ){
+	if( !specular_map.empty() ){
 		ilGenImages( 1, &specular_tex );
 		ilBindImage( specular_tex );
-		ilLoadImage( specular_file );
-	}else
-		this->specular_tex = NULL;
+		ilLoadImage( specular_map.c_str() );
+	}
 
 	ambient_color.assign( 0.0 );
 	diffuse_color.assign( 0.0 );
@@ -41,9 +32,6 @@ Material::Material( char *name, char *diffuse_file,
 
 Material::~Material()
 {
-	if( _name != NULL )
-		delete _name;
-
 	if( diffuse_tex != 0 )
 		ilDeleteImages( 1, &diffuse_tex );
 
@@ -54,128 +42,110 @@ Material::~Material()
 		ilDeleteImages( 1, &specular_tex );
 }
 
-const char* Material::Name()
+const string Material::Name() const
 {
-	if( _name != NULL )
-		return _name;
-	else
-		return NULL;
+	return _name;
 }
 
 const ILuint* Material::DiffuseTexture()
 {
-	if( &diffuse_tex != NULL )
-		return &diffuse_tex;
-	else
-		return NULL;
+	return &diffuse_tex;
 }
 
 const ILuint* Material::NormalTexture()
 {
-	if( &normal_tex != NULL )
-		return &normal_tex;
-	else
-		return NULL;
+	return &normal_tex;
 }
 
 const ILuint* Material::SpecularTexture()
 {
-	if( &specular_tex != NULL )
-		return &specular_tex;
-	else
-		return NULL;	
+	return &specular_tex;
 }
 
-const boost::array< float, 3 >* Material::AmbientColor()
+const array< float, 3 >* Material::AmbientColor()
 {
 	return &ambient_color;
 }
 
-const boost::array< float, 3 >* Material::DiffuseColor()
+const array< float, 3 >* Material::DiffuseColor()
 {
 	return &diffuse_color;
 }
 
-const boost::array< float, 3 >* Material::SpecularColor()
+const array< float, 3 >* Material::SpecularColor()
 {
 	return &specular_color;
 }
 
-float Material::Alpha()
+const float Material::Alpha() const
 {
 	return _alpha;
 }
 
-float Material::Shininess()
+const float Material::Shininess() const
 {
 	return _shininess;
 }
 
-bool Material::HasSpecular()
+const bool Material::HasSpecular() const
 {
 	return _has_specular;
 }
 
-void Material::SetName( const char *name )
+void Material::SetName( const string &name )
 {
-	if( _name != NULL ){
-		delete _name;
-		_name = NULL;
-	}
-
-	_name = new char[strlen(name)];
-	strcpy(_name, name);
+	_name = name;
 }
 
-void Material::SetDiffuseTexture( char *diffuse_file )
+void Material::SetDiffuseTexture( const string &diffuse_file )
 {
-	if( &diffuse_tex != NULL )
+	if( diffuse_tex != 0 )
 		ilDeleteImages( 1, &diffuse_tex );
 
 	ilGenImages( 1, &diffuse_tex );
 	ilBindImage( diffuse_tex );
-	ilLoadImage( diffuse_file );
+	ilLoadImage( diffuse_file.c_str() );
 }
 
-void Material::SetNormalTexture( char *normal_file )
+void Material::SetNormalTexture( const string &normal_file )
 {
 	if( &normal_tex != NULL )
 		ilDeleteImages( 1, &normal_tex );
 
 	ilGenImages( 1, &normal_tex );
 	ilBindImage( normal_tex );
-	ilLoadImage( normal_file );
+	ilLoadImage( normal_file.c_str() );
 }
 
-void Material::SetSpecularTexture( char *specular_file )
+void Material::SetSpecularTexture( const string &specular_file )
 {
 	if( &specular_tex != NULL )
 		ilDeleteImages( 1, &specular_tex );
 
 	ilGenImages( 1, &specular_tex );
 	ilBindImage( specular_tex );
-	ilLoadImage( specular_file );
+	ilLoadImage( specular_file.c_str() );
 }
 
 void Material::SetAmbientColor( float red, float green, float blue )
 {
-	ambient_color[ 0 ] = red;
-	ambient_color[ 1 ] = green;
-	ambient_color[ 2 ] = blue;
+	ambient_color[0] = red;
+	ambient_color[1] = green;
+	ambient_color[2] = blue;
 }
 
 void Material::SetDiffuseColor( float red, float green, float blue )
 {
-	diffuse_color[ 0 ] = red;
-	diffuse_color[ 1 ] = green;
-	diffuse_color[ 2 ] = blue;
+	diffuse_color[0] = red;
+	diffuse_color[1] = green;
+	diffuse_color[2] = blue;
 }
 
 void Material::SetSpecularColor( float red, float green, float blue )
 {
-	specular_color[ 0 ] = red;
-	specular_color[ 1 ] = green;
-	specular_color[ 2 ] = blue;
+	specular_color[0] = red;
+	specular_color[1] = green;
+	specular_color[2] = blue;
 }
 
 void Material::SetAlpha( float alpha )
