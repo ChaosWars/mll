@@ -14,7 +14,9 @@ namespace mll{
 			FileOpenException( const string &file ) : f(file){}
 
 			virtual const char* what() const throw(){
-				return f.c_str();
+				string *error = new string( "Failed to open file " );
+				error->append(f);
+				return error->c_str();
 			}
 
 		private:
