@@ -13,6 +13,8 @@ namespace mll{
 
 			FileOpenException( const string &file ) : f(file){}
 
+			virtual ~FileOpenException() throw(){}
+
 			virtual const char* what() const throw(){
 				string *error = new string( "Failed to open file " );
 				error->append(f);
