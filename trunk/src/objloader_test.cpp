@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 		delete model;
 		return EXIT_SUCCESS;
 	}catch(FileOpenException &e){
-		cout << "Failed to open file " << e.what() << endl;
+		cout << e.what() << endl;
 		return EXIT_FAILURE;
 	}
 }
