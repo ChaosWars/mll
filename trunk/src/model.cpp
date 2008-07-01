@@ -1,5 +1,5 @@
 #include <string>
-#include "model.h"
+#include "model.hpp"
 
 using namespace mll;
 
@@ -18,7 +18,7 @@ const string& Model::Name() const
 	return n;
 }
 
-bool Model::Quad()
+bool Model::isQuad()
 {
 	return q;
 }

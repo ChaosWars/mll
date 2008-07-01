@@ -1,5 +1,4 @@
-#include "materialloader.h"
-#include "material.h"
+#include "materialloader.hpp"
 
 using namespace mll;
 
