@@ -2,8 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <IL/ilut.h>
-#include "exception.h"
-#include "objmaterialloader.h"
+#include "exception.hpp"
+#include "objmaterialloader.hpp"
 
 using namespace mll;
 

@@ -1,7 +1,6 @@
-typedef struct{
-	int MAJOR;
-	int MINOR;
-} MLLVersion;
+#include "mll.hpp"
+
+using namespace mll;
 
 extern "C"{
 

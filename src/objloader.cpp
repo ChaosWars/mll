@@ -1,10 +1,10 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "exception.h"
-#include "material.h"
-#include "objloader.h"
-#include "objmaterialloader.h"
+#include "exception.hpp"
+#include "material.hpp"
+#include "objloader.hpp"
+#include "objmaterialloader.hpp"
 
 using namespace mll;
 

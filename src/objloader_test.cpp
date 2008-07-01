@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
-#include "exception.h"
-#include "objloader.h"
+#include "mll.hpp"
 
 using namespace mll;
 
@@ -20,25 +19,48 @@ void PrintModelGeometryInfo( Model &model )
 	vector<float> *vertices = model.Vertices();
 	
 	try{
-		if( nn == nt && nn == nv && nt == nv ){
-			for(int i = 0; i < nn; i += 3){
-				cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << endl;
-				cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << endl;
-				cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << endl;
-			}
-		}else{
-			for(int i = 0; i < nn; i += 3){
-				cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << endl;
-			}
+		if( model.isQuad() ){ /* If the model is quadrangulated */
+			if( nn == nt && nn == nv && nt == nv ){
+				for(int i = 0; i < nn; i += 4){
+					cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << normals->at(i+3) << endl;
+					cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << tex_coords->at(i+3) << endl;
+					cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << vertices->at(i+3)  << endl;
+				}
+			}else{
+				for(int i = 0; i < nn; i += 4){
+					cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << normals->at(i+3) << endl;
+				}
 
-			for(int i = 0; i < nt; i+= 3){
-				cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << endl;
-			}
+				for(int i = 0; i < nt; i+= 4){
+					cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << tex_coords->at(i+3) << endl;
+				}
 
-			for(int i = 0; i < nv; i += 3){
-				cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << endl;
-			}
+				for(int i = 0; i < nv; i += 4){
+					cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << vertices->at(i+3) << endl;
+				}
 
+			}
+		}else{ /* Otherwise the model is triangulated */
+			if( nn == nt && nn == nv && nt == nv ){
+				for(int i = 0; i < nn; i += 3){
+					cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << endl;
+					cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << endl;
+					cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << endl;
+				}
+			}else{
+				for(int i = 0; i < nn; i += 3){
+					cout << "n: " << normals->at(i) << " " << normals->at(i+1) << " " << normals->at(i+2) << " " << endl;
+				}
+
+				for(int i = 0; i < nt; i+= 3){
+					cout << "t: " << tex_coords->at(i) << " " << tex_coords->at(i+1) << " " << tex_coords->at(i+2) << " " << endl;
+				}
+
+				for(int i = 0; i < nv; i += 3){
+					cout << "v: " << vertices->at(i) << " " << vertices->at(i+1) << " " << vertices->at(i+2) << " " << endl;
+				}
+
+			}
 		}
 	}catch(out_of_range &e){
 		cout << e.what() << endl;
@@ -60,6 +82,8 @@ int main(int argc, char **argv)
 	OBJLoader *objloader = new OBJLoader();
 
 	try{
+		const MLLVersion *version = getMLLVersion();
+		cout << "Using Model Loading Library Version " << version->MAJOR << "." << version->MINOR << endl << endl;
 		Model *model = objloader->LoadModel( argv[1] );
 		cout << "Model information:" << endl;
 		cout << "Name: " << model->Name() << endl << endl;
