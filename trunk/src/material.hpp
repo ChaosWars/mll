@@ -45,7 +45,7 @@ namespace mll{
 			* @return
 			*		The materials name.
 			*/
-			const string Name() const;
+			string Name();
 
 			/**
 			* Get the diffuse texture for the material.
@@ -53,7 +53,7 @@ namespace mll{
 			* @return
 			*		The diffuse texture for the material.
 			*/
-			const ILuint* DiffuseTexture();
+			ILuint* DiffuseTexture();
 
 			/**
 			* Get the normal texture for the material.
@@ -61,7 +61,7 @@ namespace mll{
 			* @return
 			*		The normal texture for the material.
 			*/
-			const ILuint* NormalTexture();
+			ILuint* NormalTexture();
 
 			/**
 			* Get the specular texture for the material.
@@ -69,7 +69,7 @@ namespace mll{
 			* @return
 			*		The specular texture for the material.
 			*/
-			const ILuint* SpecularTexture();
+			ILuint* SpecularTexture();
 
 			/**
 			 * Get the ambient color for the material.
@@ -77,7 +77,7 @@ namespace mll{
 			 * @returns
 			 *		An array containing the ambient color.
 			 */
-			const array< float, 3 >* AmbientColor();
+			array< float, 3 >* AmbientColor();
 
 			/**
 			 * Get the diffuse color for the material.
@@ -85,7 +85,7 @@ namespace mll{
 			 * @returns
 			 *		An array containing the diffuse color.
 			 */
-			const array< float, 3 >* DiffuseColor();
+			array< float, 3 >* DiffuseColor();
 
 			/**
 			 * Get the specular color for the material.
@@ -93,7 +93,7 @@ namespace mll{
 			 * @returns
 			 *		An array containing the specular color.
 			 */
-			const array< float, 3 >* SpecularColor();
+			array< float, 3 >* SpecularColor();
 
 			/**
 			 * Get the alpha value of the material.
@@ -101,7 +101,7 @@ namespace mll{
 			 * @returns
 			 *		The alpha value of the material.
 			 */
-			const float Alpha() const;
+			float Alpha();
 
 			/**
 			 * Get the shininess of the material.
@@ -109,7 +109,7 @@ namespace mll{
 			 * @returns
 			 *		The shininess value of the material.
 			 */
-			const float Shininess() const;
+			float Shininess();
 
 			/**
 			 * If the materials specular values and map should be used.
@@ -117,7 +117,7 @@ namespace mll{
 			 * @returns
 			 *		If the material has specular highlights.
 			 */
-			const bool HasSpecular() const;
+			bool HasSpecular();
 
 			/**
 			* Set the name for the material.

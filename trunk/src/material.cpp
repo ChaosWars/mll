@@ -42,52 +42,52 @@ Material::~Material()
 		ilDeleteImages( 1, &specular_tex );
 }
 
-const string Material::Name() const
+string Material::Name()
 {
 	return _name;
 }
 
-const ILuint* Material::DiffuseTexture()
+ILuint* Material::DiffuseTexture()
 {
 	return &diffuse_tex;
 }
 
-const ILuint* Material::NormalTexture()
+ILuint* Material::NormalTexture()
 {
 	return &normal_tex;
 }
 
-const ILuint* Material::SpecularTexture()
+ILuint* Material::SpecularTexture()
 {
 	return &specular_tex;
 }
 
-const array< float, 3 >* Material::AmbientColor()
+array< float, 3 >* Material::AmbientColor()
 {
 	return &ambient_color;
 }
 
-const array< float, 3 >* Material::DiffuseColor()
+array< float, 3 >* Material::DiffuseColor()
 {
 	return &diffuse_color;
 }
 
-const array< float, 3 >* Material::SpecularColor()
+array< float, 3 >* Material::SpecularColor()
 {
 	return &specular_color;
 }
 
-const float Material::Alpha() const
+float Material::Alpha()
 {
 	return _alpha;
 }
 
-const float Material::Shininess() const
+float Material::Shininess()
 {
 	return _shininess;
 }
 
-const bool Material::HasSpecular() const
+bool Material::HasSpecular()
 {
 	return _has_specular;
 }
