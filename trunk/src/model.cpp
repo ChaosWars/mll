@@ -5,7 +5,7 @@ using namespace mll;
 
 Model::Model( const string &name, bool quad, const vector<float> &normals, const vector<float> &tex_coords,
 					const vector<float> &vertices, const vector<Material*> &materials )
-: n(name), vn(normals), tc(tex_coords), v(vertices), m(materials)
+: n(name), q(quad), vn(normals), tc(tex_coords), v(vertices), m(materials)
 {
 }
 

@@ -217,22 +217,22 @@ Model* OBJLoader::CreateModel( const string &name, bool quad, const vector<float
 	vector<Material*> m;
 
 	/* Simple optimization resulting in N complexity, since this will generally be the case */
-	if( normals.size() == vertices.size() && normals.size() == tex_coords.size() && vertices.size() == tex_coords.size() ){
-		for( int i = 0; i < normals.size(); ++i ){
+	if( normal_idx.size() == vertex_idx.size() && normal_idx.size() == tex_coord_idx.size() && vertex_idx.size() == tex_coord_idx.size() ){
+		for( int i = 0; i < normal_idx.size(); ++i ){
 			n.push_back( normals.at( normal_idx.at(i) ) );
 			tc.push_back( tex_coords.at( tex_coord_idx.at(i) ) );
 			v.push_back( vertices.at( vertex_idx.at(i) ) );
 		}
 	}else{ /* Otherwise we have to do this with complexity N^3*/
-		for( int i = 0; i < normals.size(); ++i ){
+		for( int i = 0; i < normal_idx.size(); ++i ){
 			n.push_back( normals.at( normal_idx.at(i) ) );
 		}
 
-		for( int i = 0; i < tex_coords.size(); ++i ){
+		for( int i = 0; i < tex_coord_idx.size(); ++i ){
 			tc.push_back( tex_coords.at( tex_coord_idx.at(i) ) );
 		}
 
-		for( int i = 0; i < vertices.size(); ++i ){
+		for( int i = 0; i < vertex_idx.size(); ++i ){
 			v.push_back( vertices.at( vertex_idx.at(i) ) );
 		}
 	}
