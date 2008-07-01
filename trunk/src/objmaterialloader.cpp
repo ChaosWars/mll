@@ -23,10 +23,36 @@ void OBJMaterialLoader::LoadMaterials( const string &material_file, vector<Mater
 	file.open( material_file.c_str(), ifstream::in );
 
 	if ( !file.is_open() ){
+<<<<<<< .mine
+		cout << "Failed to open material file." << endl;
+		return 0;
+=======
 		throw FileOpenException(material_file);
+>>>>>>> .r24
 	}
 
+<<<<<<< .mine
+	//First pass established the number of materials
+	int num_materials = 0;
+
+	while( !file.eof() ){
+		getline( file, buffer );
+
+		if( buffer.substr( 0, 6 ) == "newmtl" )
+			++num_materials;
+	}
+
+	materials = new Material *[num_materials];
+
+	//Rewind file pointer in preperation for the second pass.
+	file.clear();
+	file.seekg( std::ifstream::beg );
+
+	char *name = NULL;
+	char *diffuse_map = NULL;
+=======
 	string name, diffuse_map, normal_map, specular_map;
+>>>>>>> .r24
 	float ambient_red = 0.0;
 	float ambient_green = 0.0;
 	float ambient_blue = 0.0;
@@ -48,11 +74,16 @@ void OBJMaterialLoader::LoadMaterials( const string &material_file, vector<Mater
 			getline( file, buffer );
 		}
 
+<<<<<<< .mine
+		name = new char[buffer.length() - 6];
+		sscanf( buffer.c_str(), "newmtl %s", name );
+=======
 		int len = buffer.length() - 6;
 		char *n = new char[len];
 		sscanf( buffer.c_str(), "newmtl %s", n );
 		n[len] = '\0';
 		name = n;
+>>>>>>> .r24
 		getline( file, buffer );
 
 		while( buffer.substr( 0, 6 ) != "newmtl" && !file.eof() ){
@@ -113,9 +144,15 @@ void OBJMaterialLoader::LoadMaterials( const string &material_file, vector<Mater
 			getline( file, buffer );
 		}
 
+<<<<<<< .mine
+		materials[cur_material] = new Material( name, const_cast< char* >( diffuse_map ) );
+		materials[cur_material]->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
+		materials[cur_material]->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
+=======
 		materials.push_back( new Material( name, diffuse_map, normal_map, specular_map ) );
 		materials.back()->SetAmbientColor( ambient_red, ambient_green, ambient_blue );
 		materials.back()->SetDiffuseColor( diffuse_red, diffuse_green, diffuse_blue );
+>>>>>>> .r24
 
 		if( has_specular ){
 			materials.back()->SetHasSpecular( true );
