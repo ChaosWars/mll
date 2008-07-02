@@ -10,19 +10,19 @@ Material::Material( const string &name, const string &diffuse_map, const string 
 	if( !diffuse_map.empty() ){
 		ilGenImages( 1, &diffuse_tex );
 		ilBindImage( diffuse_tex );
-		ilLoadImage( diffuse_map.c_str() );
+		ilLoadImage( const_cast<char*>( diffuse_map.c_str() ) );
 	}
 
 	if( !normal_map.empty() ){
 		ilGenImages( 1, &normal_tex );
 		ilBindImage( normal_tex );
-		ilLoadImage( normal_map.c_str() );
+		ilLoadImage( const_cast<char*>( normal_map.c_str() ) );
 	}
 
 	if( !specular_map.empty() ){
 		ilGenImages( 1, &specular_tex );
 		ilBindImage( specular_tex );
-		ilLoadImage( specular_map.c_str() );
+		ilLoadImage( const_cast<char*>( specular_map.c_str() ) );
 	}
 
 	ambient_color.assign( 0.0 );
@@ -104,7 +104,7 @@ void Material::SetDiffuseTexture( const string &diffuse_file )
 
 	ilGenImages( 1, &diffuse_tex );
 	ilBindImage( diffuse_tex );
-	ilLoadImage( diffuse_file.c_str() );
+	ilLoadImage( const_cast<char*>( diffuse_file.c_str() ) );
 }
 
 void Material::SetNormalTexture( const string &normal_file )
@@ -114,7 +114,7 @@ void Material::SetNormalTexture( const string &normal_file )
 
 	ilGenImages( 1, &normal_tex );
 	ilBindImage( normal_tex );
-	ilLoadImage( normal_file.c_str() );
+	ilLoadImage( const_cast<char*>( normal_file.c_str() ) );
 }
 
 void Material::SetSpecularTexture( const string &specular_file )
@@ -124,7 +124,7 @@ void Material::SetSpecularTexture( const string &specular_file )
 
 	ilGenImages( 1, &specular_tex );
 	ilBindImage( specular_tex );
-	ilLoadImage( specular_file.c_str() );
+	ilLoadImage( const_cast<char*>( specular_file.c_str() ) );
 }
 
 void Material::SetAmbientColor( float red, float green, float blue )
