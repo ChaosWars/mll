@@ -2,11 +2,9 @@
 
 using namespace mll;
 
-Material::Material( const string &name, const string &diffuse_map, const string &normal_map, const string &specular_map ) :
-					_has_specular( false )
+Material::Material( const string &name, const string &diffuse_map, const string &normal_map, const string &specular_map )
+	: _name(name), _has_specular( false )
 {
-	_name = name;
-
 	if( !diffuse_map.empty() ){
 		ilGenImages( 1, &diffuse_tex );
 		ilBindImage( diffuse_tex );
