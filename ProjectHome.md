@@ -1,0 +1,1 @@
+Library to facilitate the loading of 3D models of different formats. The aim of the project is to provide an API that can load ASCII and binary model formats from a variety of programs and parse/convert the data suitable for direct use by 3D graphics API's such as OpenGL and Direct3D.
