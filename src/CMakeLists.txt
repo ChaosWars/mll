@@ -1,9 +1,13 @@
-ENABLE_TESTING()
-SET( SRC mll.cpp material.cpp materialloader.cpp model.cpp modelloader.cpp objmaterialloader.cpp objloader.cpp )
-SET( TEST objloader_test.cpp )
-INCLUDE_DIRECTORIES( /usr/include )
-LINK_DIRECTORIES( ../ /usr/lib )
-ADD_LIBRARY( modelloader ${SRC})
-ADD_EXECUTABLE( test ${TEST} )
-TARGET_LINK_LIBRARIES( test modelloader IL ILU ILUT)
-ADD_TEST( ObjTest test test.obj )
+set(
+    SRC
+    mll.cpp
+    material.cpp
+    materialloader.cpp
+    model.cpp
+    modelloader.cpp
+    objmaterialloader.cpp
+    objloader.cpp
+)
+
+add_library(modelloader STATIC ${SRC})
+target_include_directories(modelloader PUBLIC "${PROJECT_BINARY_DIR}/src")

@@ -23,9 +23,9 @@ Material::Material( const string &name, const string &diffuse_map, const string 
 		ilLoadImage( const_cast<char*>( specular_map.c_str() ) );
 	}
 
-	ambient_color.assign( 0.0 );
-	diffuse_color.assign( 0.0 );
-	specular_color.assign( 0.0 );
+	ambient_color.fill(0.0);
+	diffuse_color.fill(0.0);
+	specular_color.fill(0.0);
 }
 
 Material::~Material()
@@ -107,7 +107,7 @@ void Material::SetDiffuseTexture( const string &diffuse_file )
 
 void Material::SetNormalTexture( const string &normal_file )
 {
-	if( &normal_tex != NULL )
+	if (normal_tex != 0)
 		ilDeleteImages( 1, &normal_tex );
 
 	ilGenImages( 1, &normal_tex );
@@ -117,7 +117,7 @@ void Material::SetNormalTexture( const string &normal_file )
 
 void Material::SetSpecularTexture( const string &specular_file )
 {
-	if( &specular_tex != NULL )
+	if (specular_tex != 0)
 		ilDeleteImages( 1, &specular_tex );
 
 	ilGenImages( 1, &specular_tex );

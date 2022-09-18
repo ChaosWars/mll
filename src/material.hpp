@@ -1,12 +1,12 @@
 #ifndef _MATERIAL_H_
 #define _MATERIAL_H_
 
-#include <IL/il.h>
+#include <array>
 #include <string>
-#include <boost/array.hpp>
+
+#include <IL/il.h>
 
 using namespace std;
-using namespace boost;
 
 namespace mll{
 
@@ -222,9 +222,9 @@ namespace mll{
 			ILuint diffuse_tex;
 			ILuint normal_tex;
 			ILuint specular_tex;
-			boost::array< float, 3 > ambient_color;
-			boost::array< float, 3 > diffuse_color;
-			boost::array< float, 3 > specular_color;
+			array<float, 3> ambient_color;
+			array<float, 3> diffuse_color;
+			array<float, 3> specular_color;
 			float _alpha;
 			float _shininess;
 			bool _has_specular;
