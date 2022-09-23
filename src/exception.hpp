@@ -6,26 +6,24 @@
 
 using namespace std;
 
-namespace mll{
+namespace mll {
 
-	class FileOpenException : public exception{
-		public:
+class FileOpenException : public exception {
+  public:
+    FileOpenException(const string &file) : f(file) {}
 
-			FileOpenException( const string &file ) : f(file){}
+    virtual ~FileOpenException() throw() {}
 
-			virtual ~FileOpenException() throw(){}
+    virtual const char *what() const throw() {
+        string *error = new string("Failed to open file ");
+        error->append(f);
+        return error->c_str();
+    }
 
-			virtual const char* what() const throw(){
-				string *error = new string( "Failed to open file " );
-				error->append(f);
-				return error->c_str();
-			}
+  private:
+    string f;
+};
 
-		private:
-			string f;
-
-	};
-
-}
+} // namespace mll
 
 #endif
