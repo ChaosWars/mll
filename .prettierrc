@@ -1,0 +1,5 @@
+{
+    "endOfLine": "lf",
+    "prettierPath": "./node_modules/prettier",
+    "tabWidth": 4
+}

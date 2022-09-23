@@ -1,0 +1,13 @@
+{
+    "C_Cpp.intelliSenseEngine": "Disabled",
+    "clangd.onConfigChanged": "restart",
+    "[c++]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 4
+    },
+    "prettier": {
+        "endOfLine": "lf",
+        "prettierPath": "./node_modules/prettier",
+        "tabWidth": 4
+    }
+}
